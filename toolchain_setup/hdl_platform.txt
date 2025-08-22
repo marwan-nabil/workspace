@@ -1,0 +1,9 @@
+-------------
+Introduction:
+-------------
+This documentation applies for the HLD platform, and shows how to install the verilog compilation & simulation tools.
+
+------------------------------------------------------------
+dependencies that have to be downloaded and installed first:
+------------------------------------------------------------
+- icarus verilog: install in tools/iverilog

@@ -1,0 +1,47 @@
+-------------
+Introduction:
+-------------
+This documentation applies for the i686-elf custom platform for building the Os project.
+
+------------------------------------------------------------
+dependencies that have to be downloaded and installed first:
+------------------------------------------------------------
+- nasm: install in tools/nasm
+- qemu: install qemu-system-x86_64 & DLLs in tools/qemu
+- cygwin: install in tools/cygwin, specific packages will be installed later
+- bochs (optional): in tools/bochs
+- gcc-13.2.0 source code: put in outputs/
+- binutils-2.41 source code: put in outputs/
+
+------------------------------------------------
+how to build a windows-based gcc cross compiler:
+------------------------------------------------
+- cygwin must be already installed in tools/cygwin
+- install those cygwin packages:
+    - wget, tar, make, gcc-g++, bison, flex, libgmp-devel, libmpc-devel, libmpfr-devel, texinfo
+- download binutils and gcc source archives, then extract them to outputs/
+- open cygwin command shell tools\cygwin\Cygwin.bat and switch to outputs/ folder
+- setup some environment variables by performing those commands:
+    - export PREFIX="$PWD/../tools/i686-elf"
+    - export TARGET=i686-elf
+    - export PATH="$PREFIX/bin:$PATH"
+- create the binutils-build and gcc-build directories, then switch to binutils-build
+- configure binutils with the following flags:
+    - ../binutils-2.41/configure --target=$TARGET --prefix=$PREFIX --with-sysroot --disable-nls --disable-werror
+- build binutils:
+    - make -sj12
+    - if building binutils fails with the latest version,
+      switch to an older version or 2.41 (guaranteed to work under cygwin)
+- install binutils:
+    - make install
+- switch to gcc-build folder then configure gcc:
+    - ../gcc-13.2.0/configure --target=$TARGET --prefix=$PREFIX --disable-nls --enable-languages=c,c++ --without-headers
+- build gcc:
+    - make all-gcc -sj12
+    - make all-target-libgcc -sj12
+    - if building gcc fails with the latest version,
+      switch to an older version or 13.2.0 (guaranteed to work under cygwin)
+- install gcc:
+    - make install-gcc
+    - make install-target-libgcc
+- binutils and gcc cross compiler are now installed under tools/i686-elf

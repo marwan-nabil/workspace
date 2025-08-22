@@ -4,7 +4,7 @@
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "files.autoSave": "afterDelay",
     "window.commandCenter": false,
-    "workbench.activityBar.location": "hidden",
+    "workbench.activityBar.location": "top",
     "search.useIgnoreFiles": true,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "workbench.startupEditor": "none",
