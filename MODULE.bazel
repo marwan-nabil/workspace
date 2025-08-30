@@ -6,14 +6,17 @@ module(
 )
 
 bazel_dep(name = "rules_cc", version = "0.2.2")
-bazel_dep(
-    name = "nasm",
-    version = "0.1.0",
-)
+bazel_dep(name = "nasm", version = "0.1.0")
+bazel_dep(name = "i686-elf", version = "0.1.0")
 
 local_path_override(
     module_name = "nasm",
     path = "toolchains/nasm",
 )
+local_path_override(
+    module_name = "i686-elf",
+    path = "toolchains/i686-elf",
+)
 
 register_toolchains("@nasm//:nasm_toolchain")
+register_toolchains("@i686-elf//:i686-elf_cc_toolchain")
