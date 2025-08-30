@@ -1,0 +1,14 @@
+load("//bazel:nasm_rules.bzl", "nasm_assemble", "nasm_disassemble")
+
+nasm_assemble(
+    name = "bootsector",
+    srcs = [
+        "entry.s",
+    ],
+    listing_file = "bootsector.lst",
+)
+
+nasm_disassemble(
+    name = "bootsector_disassembly",
+    src = ":bootsector",
+)

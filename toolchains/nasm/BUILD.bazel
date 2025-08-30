@@ -1,10 +1,11 @@
-load(":toolchain.bzl", "nasm_toolchain")
+load(":toolchain.bzl", "nasm_toolchain_rule")
 
 toolchain_type(name = "nasm_toolchain_type")
 
-nasm_toolchain(
+nasm_toolchain_rule(
     name = "nasm_toolchain_implementation",
-    nasm = ":nasm",
+    nasm_exe = ":nasm_exe",
+    ndisasm_exe = ":ndisasm_exe",
 )
 
 toolchain(
@@ -14,6 +15,11 @@ toolchain(
 )
 
 filegroup(
-    name = "nasm",
+    name = "nasm_exe",
     srcs = ["nasm.exe"],
+)
+
+filegroup(
+    name = "ndisasm_exe",
+    srcs = ["ndisasm.exe"],
 )
