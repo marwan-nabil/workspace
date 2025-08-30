@@ -1,0 +1,19 @@
+load(":toolchain.bzl", "nasm_toolchain")
+
+toolchain_type(name = "nasm_toolchain_type")
+
+nasm_toolchain(
+    name = "nasm_toolchain_implementation",
+    nasm = ":nasm",
+)
+
+toolchain(
+    name = "nasm_toolchain",
+    toolchain = ":nasm_toolchain_implementation",
+    toolchain_type = ":nasm_toolchain_type",
+)
+
+filegroup(
+    name = "nasm",
+    srcs = ["nasm.exe"],
+)

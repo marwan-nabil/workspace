@@ -1,18 +1,21 @@
 {
     "search.exclude": {
+        "toolchains/cygwin": true,
+        "toolchains/i686-elf/bin": true,
+        "toolchains/i686-elf/i686-elf": true,
+        "toolchains/i686-elf/include": true,
+        "toolchains/i686-elf/lib/bfd-plugins": true,
+        "toolchains/i686-elf/lib/gcc/i686-elf/13.2.0/include-fixed": true,
+        "toolchains/i686-elf/lib/gcc/i686-elf/13.2.0/install-tools": true,
+        "toolchains/i686-elf/lib/gcc/i686-elf/13.2.0/*.*": true,
+        "toolchains/i686-elf/libexec": true,
+        "toolchains/i686-elf/share": true,
+        "toolchains/msvc": true, // TODO: determine what paths to exclude exactly
+        "toolchains/nasm": true,
         "tools/bochs": true,
-        "tools/cygwin": true,
-        "tools/i686-elf/bin": true,
-        "tools/i686-elf/i686-elf": true,
-        "tools/i686-elf/include": true,
-        "tools/i686-elf/lib/bfd-plugins": true,
-        "tools/i686-elf/lib/gcc/i686-elf/13.2.0/include-fixed": true,
-        "tools/i686-elf/lib/gcc/i686-elf/13.2.0/install-tools": true,
-        "tools/i686-elf/lib/gcc/i686-elf/13.2.0/*.*": true,
-        "tools/i686-elf/libexec": true,
-        "tools/i686-elf/share": true,
-        "tools/msvc": true, // TODO: determine what paths to exclude exactly
-        "tools/nasm": true,
         "tools/qemu": true,
+        "tools/bazel": true
     },
+    "bazel.buildifierExecutable": "tools/bazel/buildifier.exe",
+    "bazel.buildifierFixOnFormat": true,
 }

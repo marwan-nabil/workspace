@@ -1,0 +1,45 @@
+-------------
+Introduction:
+-------------
+This documentation applies for the i686-elf custom platform for building the Os project.
+
+------------------------------------------------------------
+dependencies that have to be downloaded and installed first:
+------------------------------------------------------------
+- nasm: install in toolchains/nasm
+- qemu: install qemu-system-x86_64 & DLLs in tools/qemu
+- mysys2: install in toolchains/mysys2
+- bochs (optional): in tools/bochs
+- gcc-13.2.0 source code: extract in toolchains/toolchains-build/
+- binutils-2.41 source code: extract in toolchains/toolchains-build/
+
+------------------------------------------------
+how to build a windows-based gcc cross compiler:
+------------------------------------------------
+- from the mysys64 terminal, make sure those packages are installed:
+    - base-devel, wget, tar, make, gcc-g++, bison, flex, gmp-devel, mpc-devel, mpfr-devel, texinfo
+- using this terminal go to toolchains/toolchains-build/
+- setup some environment variables by performing those commands:
+    - export PREFIX="$PWD/../i686-elf"
+    - export TARGET=i686-elf
+    - export PATH="$PREFIX/bin:$PATH"
+- create the binutils-build and gcc-build directories, then switch to binutils-build
+- configure binutils with the following flags:
+    - ../binutils-2.41/configure --target=$TARGET --prefix=$PREFIX --with-sysroot --disable-nls --disable-werror
+- build binutils:
+    - make -sj12
+    - if building binutils fails with the latest version,
+      switch to an older version or 2.41
+- install binutils:
+    - make install
+- switch to gcc-build folder then configure gcc:
+    - ../gcc-13.2.0/configure --target=$TARGET --prefix=$PREFIX --disable-nls --enable-languages=c,c++ --without-headers
+- build gcc:
+    - make all-gcc -sj12
+    - make all-target-libgcc -sj12
+    - if building gcc fails with the latest version,
+      switch to an older version or 13.2.0
+- install gcc:
+    - make install-gcc
+    - make install-target-libgcc
+- binutils and gcc cross compiler are now installed under toolchains/i686-elf

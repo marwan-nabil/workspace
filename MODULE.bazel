@@ -1,0 +1,19 @@
+"""main workspace bazel module file"""
+
+module(
+    name = "workspace",
+    version = "0.1.0",
+)
+
+bazel_dep(name = "rules_cc", version = "0.2.2")
+bazel_dep(
+    name = "nasm",
+    version = "0.1.0",
+)
+
+local_path_override(
+    module_name = "nasm",
+    path = "toolchains/nasm",
+)
+
+register_toolchains("@nasm//:nasm_toolchain")

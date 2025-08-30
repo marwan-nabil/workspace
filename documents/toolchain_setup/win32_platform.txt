@@ -1,0 +1,11 @@
+-------------
+Introduction:
+-------------
+This is a guide for installing the necessary tools for the win32 platform.
+
+------------------------------------------------------------
+dependencies that have to be downloaded and installed first:
+------------------------------------------------------------
+- MSVC + windows development kit.
+- git & tortoise git & beyond compare.
+- vscode as editor.
