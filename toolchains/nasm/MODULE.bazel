@@ -1,6 +1,0 @@
-"nasm toolchain bazel module"
-
-module(
-    name = "nasm",
-    version = "0.1.0",
-)

@@ -25,7 +25,6 @@
         // tools
         "tools": true,
     },
-    "bazel.buildifierExecutable": "tools/bazel/buildifier.exe",
     "terminal.integrated.env.windows": {
         "path": "${workspaceFolder}/tools/bazel",
         "BAZEL_SH": "${workspaceFolder}/toolchains/mysys64/usr/bin/bash.exe",
