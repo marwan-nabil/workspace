@@ -26,9 +26,8 @@
         "tools": true,
     },
     "terminal.integrated.env.windows": {
-        "path": "${workspaceFolder}/tools/bazel",
-        "BAZEL_SH": "${workspaceFolder}/toolchains/mysys64/usr/bin/bash.exe",
+        "BAZEL_SH": "${workspaceFolder}\\..\\toolchains\\mysys64\\usr\\bin\\bash.exe",
     },
-    "zig.path": "${workspaceFolder}/toolchains/zig/zig.exe",
-    "zig.zls.path": "${workspaceFolder}/toolchains/zig/zls.exe",
+    "zig.path": "${workspaceFolder}\\..\\toolchains\\zig\\zig.exe",
+    "zig.zls.path": "${workspaceFolder}\\..\\toolchains\\zig\\zls.exe",
 }
