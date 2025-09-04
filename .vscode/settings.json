@@ -1,28 +1,7 @@
 {
     "search.exclude": {
-        // bazel folders
         "bazel-bin": true,
         "bazel-testlogs": true,
         "bazel-workspace": true,
-        // toolchains/i686-elf
-        "toolchains/i686-elf/bin": true,
-        "toolchains/i686-elf/i686-elf": true,
-        "toolchains/i686-elf/include": true,
-        "toolchains/i686-elf/lib/bfd-plugins": true,
-        "toolchains/i686-elf/lib/gcc/i686-elf/13.2.0/include-fixed": true,
-        "toolchains/i686-elf/lib/gcc/i686-elf/13.2.0/install-tools": true,
-        "toolchains/i686-elf/lib/gcc/i686-elf/13.2.0/*.*": true,
-        "toolchains/i686-elf/libexec": true,
-        "toolchains/i686-elf/share": true,
-        // toolchains/msvc
-        "toolchains/msvc": true, // TODO: determine what paths to exclude exactly
-        // toolchains/mysys64
-        "toolchains/mysys64": true, // TODO: determine what paths to exclude exactly
-        // toolchains/nasm
-        "toolchains/nasm": true,
-        // toolchains/zig
-        "toolchains/zig": true,
-        // tools
-        "tools": true,
     },
 }
