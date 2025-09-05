@@ -1,4 +1,4 @@
-load("//bazel:nasm_rules.bzl", "nasm_assemble", "nasm_disassemble")
+load("@nasm_rules//:nasm_rules.bzl", "nasm_assemble", "nasm_disassemble")
 
 nasm_assemble(
     name = "bootsector",

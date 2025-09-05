@@ -12,13 +12,3 @@ local_path_override(
     path = "../bazel_modules/nasm_rules",
 )
 register_toolchains("@nasm_rules//:nasm_toolchain")
-
-# python
-bazel_dep(name = "rules_python", version = "1.6.0")
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
-pip.parse(
-    hub_name = "pypi",
-    python_version = "3.11",
-    requirements_lock = "//scripts/python:requirements.txt",
-)
-use_repo(pip, "pypi")
