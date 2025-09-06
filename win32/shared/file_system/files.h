@@ -1,5 +1,7 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+
 struct read_file_result
 {
     void *FileMemory;

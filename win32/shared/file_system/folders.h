@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\strings\string_list.h"
+#include "win32\shared\system\memory.h"
+
 b32 CleanExtensionFromDirectory(const char *ExtensionToClean, const char *DirectoryPath);
 b32 DoesDirectoryExist(const char *DirectoryPath);
 void DeleteDirectoryCompletely(const char *DirectoryPath);

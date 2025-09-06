@@ -1,5 +1,8 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\strings\string_list.h"
+
 struct environment_info
 {
     i32 argc;

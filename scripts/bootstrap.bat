@@ -29,8 +29,8 @@ pushd %cd%\build\bootstrapper
         %link_flags%
 popd
 
-@REM %cd%\build\bootstrapper\bootstrapper.exe %1
+%cd%\build\bootstrapper\bootstrapper.exe %1
 
-@REM if not exist %cd%\build\build\build.exe (
-@REM     echo ERROR: build.exe was not built!
-@REM )
+if not exist %cd%\build\build\build.exe (
+    echo ERROR: bootstrap.bat: build.exe was not bootstrapped successfully.
+)

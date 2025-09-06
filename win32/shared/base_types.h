@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 typedef uint8_t b8;
 typedef uint32_t b32;
 typedef uint8_t u8;

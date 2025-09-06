@@ -1,5 +1,8 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\file_system\fat12\fat12.h"
+
 void SetFatEntry(fat12_disk *Disk, u32 ClusterNumber, u16 FatEntry);
 u16 AllocateDiskClusters(fat12_disk *Disk, void *Memory, u32 Size);
 b32 AllocateFileToDirectoryEntry

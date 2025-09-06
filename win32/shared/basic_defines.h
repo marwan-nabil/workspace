@@ -18,4 +18,4 @@
 #   define AssertIsBit(Value)
 #   define AssertFits(Value, FittingMask)
 #   define InvalidCodepath
-#endif // ENABLE_ASSERTIONS
+#endif
