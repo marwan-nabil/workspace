@@ -1,7 +1,3 @@
 {
-    "search.exclude": {
-        "bazel-bin": true,
-        "bazel-testlogs": true,
-        "bazel-workspace": true,
-    },
+    "search.exclude": {},
 }
