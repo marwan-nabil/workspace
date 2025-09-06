@@ -1,15 +1,15 @@
 #include <stdarg.h>
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
-#include "sources\i686-elf\libraries\vga\vga.h"
-#include "sources\i686-elf\libraries\storage\disk\disk.h"
-#include "sources\i686-elf\libraries\strings\print.h"
-#include "sources\i686-elf\libraries\cpu\timing.h"
-#include "sources\i686-elf\libraries\storage\fat12\fat12.h"
-#include "sources\i686-elf\libraries\memory\arena_allocator.h"
-#include "sources\i686-elf\libraries\storage\file_io\file_io.h"
-#include "sources\i686-elf\os\bootloader\memory_layout.h"
-#include "sources\i686-elf\os\bootloader\tests.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
+#include "i686-elf\shared\vga\vga.h"
+#include "i686-elf\shared\storage\disk\disk.h"
+#include "i686-elf\shared\strings\print.h"
+#include "i686-elf\shared\cpu\timing.h"
+#include "i686-elf\shared\storage\fat12\fat12.h"
+#include "i686-elf\shared\memory\arena_allocator.h"
+#include "i686-elf\shared\storage\file_io\file_io.h"
+#include "i686-elf\os\bootloader\memory_layout.h"
+#include "i686-elf\os\bootloader\tests.h"
 
 u8 FreeStore[KiloBytes(64)];
 print_context GlobalPrintContext;

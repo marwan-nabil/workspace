@@ -1,7 +1,7 @@
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
-#include "sources\i686-elf\libraries\bios\disk.h"
-#include "sources\i686-elf\libraries\storage\disk\disk.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
+#include "i686-elf\shared\bios\disk.h"
+#include "i686-elf\shared\storage\disk\disk.h"
 
 void GetDiskDriveParameters(disk_parameters *DiskParameters, u8 DriveNumber)
 {

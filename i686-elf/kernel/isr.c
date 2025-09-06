@@ -1,10 +1,10 @@
 #include <stdarg.h>
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
-#include "sources\i686-elf\libraries\strings\print.h"
-#include "sources\i686-elf\libraries\cpu\panic.h"
-#include "sources\i686-elf\os\kernel\isr.h"
-#include "sources\i686-elf\os\kernel\main.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
+#include "i686-elf\shared\strings\print.h"
+#include "i686-elf\shared\cpu\panic.h"
+#include "i686-elf\os\kernel\isr.h"
+#include "i686-elf\os\kernel\main.h"
 
 isr_handler_function GlobalISRHandlers[256];
 char *GlobalExceptionMessages[] =

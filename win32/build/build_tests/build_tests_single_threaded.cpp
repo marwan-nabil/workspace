@@ -4,11 +4,11 @@
 #include <strsafe.h>
 #include <io.h>
 
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\shell\console.h"
-#include "sources\win32\libraries\strings\strings.h"
-#include "sources\win32\libraries\system\processes.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\shell\console.h"
+#include "win32\shared\strings\strings.h"
+#include "win32\shared\system\processes.h"
 
 void CompilationTest(char *TestCommand)
 {

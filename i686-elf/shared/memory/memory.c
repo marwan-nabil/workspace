@@ -1,5 +1,5 @@
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
 
 void MemorySet(void *Destination, u8 Value, u32 Size)
 {

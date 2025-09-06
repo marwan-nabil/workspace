@@ -2,18 +2,18 @@
 #include <stdint.h>
 #include <strsafe.h>
 
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\strings\strings.h"
-#include "sources\win32\libraries\strings\path_handling.h"
-#include "sources\win32\libraries\strings\string_list.h"
-#include "sources\win32\libraries\file_system\fat12\fat12.h"
-#include "sources\win32\libraries\file_system\fat12\fat12_interface.h"
-#include "sources\win32\libraries\file_system\files.h"
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\targets\i686-elf\os\bootloader\build.h"
-#include "sources\win32\tools\build\targets\i686-elf\os\bootsector\build.h"
-#include "sources\win32\tools\build\targets\i686-elf\os\kernel\build.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\strings\strings.h"
+#include "win32\shared\strings\path_handling.h"
+#include "win32\shared\strings\string_list.h"
+#include "win32\shared\file_system\fat12\fat12.h"
+#include "win32\shared\file_system\fat12\fat12_interface.h"
+#include "win32\shared\file_system\files.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\targets\i686-elf\os\bootloader\build.h"
+#include "win32\tools\build\targets\i686-elf\os\bootsector\build.h"
+#include "win32\tools\build\targets\i686-elf\os\kernel\build.h"
 
 static void AddTestFilesToDiskImage(build_context *BuildContext, fat12_disk *Fat12Disk)
 {

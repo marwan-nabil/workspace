@@ -1,4 +1,4 @@
-%include "sources\i686-elf\libraries\cpu\modes.i"
+%include "i686-elf\shared\cpu\modes.i"
 
 ; ---------------------------------------
 ; resets the floppy disk

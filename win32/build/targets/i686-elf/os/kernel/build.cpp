@@ -1,14 +1,14 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\strings\path_handling.h"
-#include "sources\win32\libraries\strings\string_list.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\strings\path_handling.h"
+#include "win32\shared\strings\string_list.h"
 
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\nasm.h"
-#include "sources\win32\tools\build\actions\gcc.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\nasm.h"
+#include "win32\tools\build\actions\gcc.h"
 
 b32 BuildKernelImage(build_context *BuildContext)
 {
@@ -17,11 +17,11 @@ b32 BuildKernelImage(build_context *BuildContext)
 
     char *AssemblyFiles[] =
     {
-        "\\sources\\i686-elf\\os\\kernel\\isr.s",
-        "\\sources\\i686-elf\\libraries\\cpu\\gdt.s",
-        "\\sources\\i686-elf\\libraries\\cpu\\idt.s",
-        "\\sources\\i686-elf\\libraries\\cpu\\io.s",
-        "\\sources\\i686-elf\\libraries\\cpu\\panic.s",
+        "\\i686-elf\\os\\kernel\\isr.s",
+        "\\i686-elf\\shared\\cpu\\gdt.s",
+        "\\i686-elf\\shared\\cpu\\idt.s",
+        "\\i686-elf\\shared\\cpu\\io.s",
+        "\\i686-elf\\shared\\cpu\\panic.s",
     };
 
     for (u32 Index = 0; Index < ArrayCount(AssemblyFiles); Index++)
@@ -46,19 +46,19 @@ b32 BuildKernelImage(build_context *BuildContext)
 
     char *CFiles[] =
     {
-        "\\sources\\i686-elf\\os\\kernel\\main.c",
-        "\\sources\\i686-elf\\os\\kernel\\isr.c",
-        "\\sources\\i686-elf\\os\\kernel\\descriptor_tables.c",
-        "\\sources\\i686-elf\\os\\kernel\\tests.c",
-        "\\sources\\i686-elf\\libraries\\vga\\vga.c",
-        "\\sources\\i686-elf\\libraries\\strings\\strings.c",
-        "\\sources\\i686-elf\\libraries\\strings\\path_handling.c",
-        "\\sources\\i686-elf\\libraries\\strings\\print.c",
-        "\\sources\\i686-elf\\libraries\\cpu\\timing.c",
-        "\\sources\\i686-elf\\libraries\\cpu\\gdt.c",
-        "\\sources\\i686-elf\\libraries\\cpu\\idt.c",
-        "\\sources\\i686-elf\\libraries\\memory\\arena_allocator.c",
-        "\\sources\\i686-elf\\libraries\\memory\\memory.c",
+        "\\i686-elf\\os\\kernel\\main.c",
+        "\\i686-elf\\os\\kernel\\isr.c",
+        "\\i686-elf\\os\\kernel\\descriptor_tables.c",
+        "\\i686-elf\\os\\kernel\\tests.c",
+        "\\i686-elf\\shared\\vga\\vga.c",
+        "\\i686-elf\\shared\\strings\\strings.c",
+        "\\i686-elf\\shared\\strings\\path_handling.c",
+        "\\i686-elf\\shared\\strings\\print.c",
+        "\\i686-elf\\shared\\cpu\\timing.c",
+        "\\i686-elf\\shared\\cpu\\gdt.c",
+        "\\i686-elf\\shared\\cpu\\idt.c",
+        "\\i686-elf\\shared\\memory\\arena_allocator.c",
+        "\\i686-elf\\shared\\memory\\memory.c",
     };
 
     for (u32 Index = 0; Index < ArrayCount(CFiles); Index++)
@@ -82,7 +82,7 @@ b32 BuildKernelImage(build_context *BuildContext)
     }
 
     AddLinkerFlags(BuildContext, "-nostdlib -Wl,-Map=kernel.map");
-    SetLinkerScriptPath(BuildContext, "\\sources\\i686-elf\\os\\kernel\\kernel.lds");
+    SetLinkerScriptPath(BuildContext, "\\i686-elf\\os\\kernel\\kernel.lds");
 
     for (u32 Index = 0; Index < ArrayCount(AssemblyFiles); Index++)
     {

@@ -1,10 +1,10 @@
 #include <stdarg.h>
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
-#include "sources\i686-elf\libraries\memory\memory.h"
-#include "sources\i686-elf\libraries\strings\print.h"
-#include "sources\i686-elf\libraries\vga\vga.h"
-#include "sources\i686-elf\libraries\cpu\io.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
+#include "i686-elf\shared\memory\memory.h"
+#include "i686-elf\shared\strings\print.h"
+#include "i686-elf\shared\vga\vga.h"
+#include "i686-elf\shared\cpu\io.h"
 
 void SetCursorPosition(print_context *Context, u32 X, u32 Y)
 {

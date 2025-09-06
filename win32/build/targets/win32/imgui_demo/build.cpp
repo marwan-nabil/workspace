@@ -1,14 +1,14 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\shell\console.h"
-#include "sources\win32\libraries\strings\string_list.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\shell\console.h"
+#include "win32\shared\strings\string_list.h"
 
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\msvc.h"
-#include "sources\win32\tools\build\build.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\msvc.h"
+#include "win32\tools\build\build.h"
 
 b32 BuildImguiDemo(build_context *BuildContext)
 {
@@ -23,10 +23,10 @@ b32 BuildImguiDemo(build_context *BuildContext)
         return FALSE;
     }
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\libraries\\imgui\\imgui*.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\libraries\\shell\\dpi.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\libraries\\system\\version.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\imgui\\win32_backend.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\shared\\imgui\\imgui*.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\shared\\shell\\dpi.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\shared\\system\\version.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\demos\\imgui\\win32_backend.cpp");
 
     AddCompilerFlags(BuildContext, "/nologo /Zi /MD /utf-8");
     AddCompilerFlags(BuildContext, "/DUNICODE /D_UNICODE /DENABLE_ASSERTIONS /D_CRT_SECURE_NO_WARNINGS");
@@ -37,15 +37,15 @@ b32 BuildImguiDemo(build_context *BuildContext)
 
     if (strcmp(BuildContext->EnvironmentInfo.argv[2], "opengl2") == 0)
     {
-        AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\imgui\\main_opengl2.cpp");
-        AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\imgui\\opengl2_backend.cpp");
+        AddCompilerSourceFile(BuildContext, "\\win32\\demos\\imgui\\main_opengl2.cpp");
+        AddCompilerSourceFile(BuildContext, "\\win32\\demos\\imgui\\opengl2_backend.cpp");
         AddLinkerFlags(BuildContext, "opengl32.lib");
         SetLinkerOutputBinary(BuildContext, "\\imgui_demo_opengl2.exe");
     }
     else if (strcmp(BuildContext->EnvironmentInfo.argv[2], "dx11") == 0)
     {
-        AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\imgui\\main_dx11.cpp");
-        AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\imgui\\dx11_backend.cpp");
+        AddCompilerSourceFile(BuildContext, "\\win32\\demos\\imgui\\main_dx11.cpp");
+        AddCompilerSourceFile(BuildContext, "\\win32\\demos\\imgui\\dx11_backend.cpp");
         AddLinkerFlags(BuildContext, "d3d11.lib d3dcompiler.lib");
         SetLinkerOutputBinary(BuildContext, "\\imgui_demo_dx11.exe");
     }

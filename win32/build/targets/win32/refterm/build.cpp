@@ -1,18 +1,18 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\strings\string_list.h"
-#include "sources\win32\libraries\strings\strings.h"
-#include "sources\win32\libraries\strings\path_handling.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\strings\string_list.h"
+#include "win32\shared\strings\strings.h"
+#include "win32\shared\strings\path_handling.h"
 
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\msvc.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\msvc.h"
 
 static b32 BuildShaders(build_context *BuildContext)
 {
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\refterm\\refterm.hlsl");
+    AddCompilerSourceFile(BuildContext, "\\win32\\demos\\refterm\\refterm.hlsl");
     AddCompilerFlags(BuildContext, "/nologo /T cs_5_0 /E ComputeMain /O3 /WX /Fh refterm_cs.h /Vn ReftermCSShaderBytes /Qstrip_reflect /Qstrip_debug /Qstrip_priv");
     b32 BuildSuccess = CompileShader2(BuildContext);
     if (!BuildSuccess)
@@ -21,7 +21,7 @@ static b32 BuildShaders(build_context *BuildContext)
     }
     ClearBuildContext(BuildContext);
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\refterm\\refterm.hlsl");
+    AddCompilerSourceFile(BuildContext, "\\win32\\demos\\refterm\\refterm.hlsl");
     AddCompilerFlags(BuildContext, "/nologo /T ps_5_0 /E PixelMain /O3 /WX /Fh refterm_ps.h /Vn ReftermPSShaderBytes /Qstrip_reflect /Qstrip_debug /Qstrip_priv");
     BuildSuccess = CompileShader2(BuildContext);
     if (!BuildSuccess)
@@ -30,7 +30,7 @@ static b32 BuildShaders(build_context *BuildContext)
     }
     ClearBuildContext(BuildContext);
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\refterm\\refterm.hlsl");
+    AddCompilerSourceFile(BuildContext, "\\win32\\demos\\refterm\\refterm.hlsl");
     AddCompilerFlags(BuildContext, "/nologo /T vs_5_0 /E VertexMain /O3 /WX /Fh refterm_vs.h /Vn ReftermVSShaderBytes /Qstrip_reflect /Qstrip_debug /Qstrip_priv");
     BuildSuccess = CompileShader2(BuildContext);
     if (!BuildSuccess)
@@ -52,7 +52,7 @@ static b32 BuildShaders(build_context *BuildContext)
 
     char DestinationFileName[1024] = {};
     StringCchCat(DestinationFileName, 1024, BuildContext->EnvironmentInfo.WorkspaceDirectoryPath);
-    StringCchCat(DestinationFileName, 1024, "\\sources\\win32\\demos\\refterm\\");
+    StringCchCat(DestinationFileName, 1024, "\\win32\\demos\\refterm\\");
 
     for (u8 FileIndex = 0; FileIndex < ArrayCount(FilesToMove); FileIndex++)
     {
@@ -80,8 +80,8 @@ b32 BuildRefTerm(build_context *BuildContext)
     char *SharedLinkerFlags = "/incremental:no /opt:icf /opt:ref";
     char *SharedSourceFiles[] =
     {
-        "\\sources\\win32\\demos\\refterm\\refterm.c",
-        "\\sources\\win32\\demos\\refterm\\refterm_example_dwrite.cpp"
+        "\\win32\\demos\\refterm\\refterm.c",
+        "\\win32\\demos\\refterm\\refterm_example_dwrite.cpp"
     };
 
     AddCompilerSourceFile(BuildContext, SharedSourceFiles[0]);
@@ -114,7 +114,7 @@ b32 BuildRefTerm(build_context *BuildContext)
     }
     ClearBuildContext(BuildContext);
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\refterm\\splat.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\demos\\refterm\\splat.cpp");
     AddCompilerFlags(BuildContext, SharedCompilerFlags);
     AddCompilerFlags(BuildContext, "/O2");
     SetCompilerIncludePath(BuildContext, "\\");
@@ -128,7 +128,7 @@ b32 BuildRefTerm(build_context *BuildContext)
     }
     ClearBuildContext(BuildContext);
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\demos\\refterm\\splat2.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\demos\\refterm\\splat2.cpp");
     AddCompilerFlags(BuildContext, SharedCompilerFlags);
     AddCompilerFlags(BuildContext, "/O2");
     SetCompilerIncludePath(BuildContext, "\\");

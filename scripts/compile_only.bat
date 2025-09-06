@@ -15,8 +15,8 @@ pushd %workspace_path%\outputs\compile_only_test
         %cc_flags_0%^
         %cc_flags_1%^
         %cc_flags_2%^
-        %workspace_path%\sources\win32\tools\build2\test.cpp ^
-        %workspace_path%\sources\win32\tools\build2\memory.cpp ^
-        %workspace_path%\sources\win32\tools\build2\entity.cpp ^
-        %workspace_path%\sources\win32\tools\build2\build2.cpp
+        %workspace_path%\win32\tools\build2\test.cpp ^
+        %workspace_path%\win32\tools\build2\memory.cpp ^
+        %workspace_path%\win32\tools\build2\entity.cpp ^
+        %workspace_path%\win32\tools\build2\build2.cpp
 popd

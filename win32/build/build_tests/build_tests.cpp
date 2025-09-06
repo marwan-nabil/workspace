@@ -16,12 +16,12 @@
 #include <strsafe.h>
 #include <io.h>
 
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\shell\console.h"
-#include "sources\win32\libraries\system\timing.h"
-#include "sources\win32\libraries\system\processes.h"
-#include "sources\win32\tests\build_tests\build_tests.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\shell\console.h"
+#include "win32\shared\system\timing.h"
+#include "win32\shared\system\processes.h"
+#include "win32\tests\build_tests\build_tests.h"
 
 test_job_configuration TestJobConfiguration[] =
 {

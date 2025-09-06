@@ -1,15 +1,15 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\shell\console.h"
-#include "sources\win32\libraries\system\processes.h"
-#include "sources\win32\libraries\strings\strings.h"
-#include "sources\win32\libraries\strings\string_list.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\shell\console.h"
+#include "win32\shared\system\processes.h"
+#include "win32\shared\strings\strings.h"
+#include "win32\shared\strings\string_list.h"
 
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\nasm.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\nasm.h"
 
 b32 AssembleWithNasm(build_context *BuildContext)
 {

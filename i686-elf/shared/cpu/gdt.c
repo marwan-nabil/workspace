@@ -1,6 +1,6 @@
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
-#include "sources\i686-elf\libraries\cpu\gdt.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
+#include "i686-elf\shared\cpu\gdt.h"
 
 gdt_entry CreateGDTEntry(u32 Base, u32 Limit, u8 AccessField, u8 FlagsField)
 {

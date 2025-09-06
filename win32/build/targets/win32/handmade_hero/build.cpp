@@ -1,12 +1,12 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\strings\string_list.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\strings\string_list.h"
 
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\msvc.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\msvc.h"
 
 b32 BuildHandmadeHero(build_context *BuildContext)
 {
@@ -15,14 +15,14 @@ b32 BuildHandmadeHero(build_context *BuildContext)
     StringCchCatA(SharedCompilerFlags, ArrayCount(SharedCompilerFlags), "/W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 ");
     StringCchCatA(SharedCompilerFlags, ArrayCount(SharedCompilerFlags), "/DHANDMADE_WIN32=1 /DHANDMADE_SLOW=1 /DHANDMADE_INTERNAL=1 /DENABLE_ASSERTIONS ");
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\game.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\bitmap.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\renderer.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\random_numbers_table.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\world.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\entity.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\collision.cpp");
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\simulation.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\game.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\bitmap.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\renderer.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\random_numbers_table.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\world.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\entity.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\collision.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\simulation.cpp");
 
     AddCompilerFlags(BuildContext, SharedCompilerFlags);
     AddCompilerFlags(BuildContext, "/LD /Fmgame.map");
@@ -59,7 +59,7 @@ b32 BuildHandmadeHero(build_context *BuildContext)
         return FALSE;
     }
 
-    AddCompilerSourceFile(BuildContext, "\\sources\\win32\\applications\\handmade_hero\\win32_platform.cpp");
+    AddCompilerSourceFile(BuildContext, "\\win32\\applications\\handmade_hero\\win32_platform.cpp");
 
     AddCompilerFlags(BuildContext, SharedCompilerFlags);
     AddCompilerFlags(BuildContext, "/Fmwin32_platform.map");

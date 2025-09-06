@@ -4,17 +4,17 @@
 #include <stdio.h>
 #include <direct.h>
 
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\strings\strings.h"
-#include "sources\win32\libraries\strings\string_list.h"
-#include "sources\win32\libraries\shell\console.h"
-#include "sources\win32\libraries\file_system\folders.h"
-#include "sources\win32\libraries\strings\path_handling.h"
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\msvc.h"
-#include "sources\win32\tools\build\targets.h"
-#include "sources\win32\tools\build\build.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\strings\strings.h"
+#include "win32\shared\strings\string_list.h"
+#include "win32\shared\shell\console.h"
+#include "win32\shared\file_system\folders.h"
+#include "win32\shared\strings\path_handling.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\msvc.h"
+#include "win32\tools\build\targets.h"
+#include "win32\tools\build\build.h"
 
 void DisplayHelp()
 {

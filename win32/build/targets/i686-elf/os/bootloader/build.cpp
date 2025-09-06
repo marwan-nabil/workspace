@@ -1,14 +1,14 @@
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
-#include "sources\win32\libraries\base_types.h"
-#include "sources\win32\libraries\basic_defines.h"
-#include "sources\win32\libraries\strings\path_handling.h"
-#include "sources\win32\libraries\strings\string_list.h"
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\strings\path_handling.h"
+#include "win32\shared\strings\string_list.h"
 
-#include "sources\win32\tools\build\actions\build_context.h"
-#include "sources\win32\tools\build\actions\nasm.h"
-#include "sources\win32\tools\build\actions\gcc.h"
+#include "win32\tools\build\actions\build_context.h"
+#include "win32\tools\build\actions\nasm.h"
+#include "win32\tools\build\actions\gcc.h"
 
 b32 BuildBootloaderImage(build_context *BuildContext)
 {
@@ -17,9 +17,9 @@ b32 BuildBootloaderImage(build_context *BuildContext)
 
     char *AssemblyFiles[] =
     {
-        "\\sources\\i686-elf\\os\\bootloader\\entry.s",
-        "\\sources\\i686-elf\\libraries\\cpu\\io.s",
-        "\\sources\\i686-elf\\libraries\\bios\\disk.s"
+        "\\i686-elf\\os\\bootloader\\entry.s",
+        "\\i686-elf\\shared\\cpu\\io.s",
+        "\\i686-elf\\shared\\bios\\disk.s"
     };
 
     for (u32 Index = 0; Index < ArrayCount(AssemblyFiles); Index++)
@@ -44,19 +44,19 @@ b32 BuildBootloaderImage(build_context *BuildContext)
 
     char *CFiles[] =
     {
-        "\\sources\\i686-elf\\os\\bootloader\\main.c",
-        "\\sources\\i686-elf\\os\\bootloader\\tests.c",
-        "\\sources\\i686-elf\\libraries\\vga\\vga.c",
-        "\\sources\\i686-elf\\libraries\\storage\\disk\\disk.c",
-        "\\sources\\i686-elf\\libraries\\strings\\strings.c",
-        "\\sources\\i686-elf\\libraries\\strings\\path_handling.c",
-        "\\sources\\i686-elf\\libraries\\strings\\print.c",
-        "\\sources\\i686-elf\\libraries\\cpu\\timing.c",
-        "\\sources\\i686-elf\\libraries\\storage\\fat12\\get.c",
-        "\\sources\\i686-elf\\libraries\\storage\\fat12\\set.c",
-        "\\sources\\i686-elf\\libraries\\memory\\arena_allocator.c",
-        "\\sources\\i686-elf\\libraries\\memory\\memory.c",
-        "\\sources\\i686-elf\\libraries\\storage\\file_io\\file_io.c",
+        "\\i686-elf\\os\\bootloader\\main.c",
+        "\\i686-elf\\os\\bootloader\\tests.c",
+        "\\i686-elf\\shared\\vga\\vga.c",
+        "\\i686-elf\\shared\\storage\\disk\\disk.c",
+        "\\i686-elf\\shared\\strings\\strings.c",
+        "\\i686-elf\\shared\\strings\\path_handling.c",
+        "\\i686-elf\\shared\\strings\\print.c",
+        "\\i686-elf\\shared\\cpu\\timing.c",
+        "\\i686-elf\\shared\\storage\\fat12\\get.c",
+        "\\i686-elf\\shared\\storage\\fat12\\set.c",
+        "\\i686-elf\\shared\\memory\\arena_allocator.c",
+        "\\i686-elf\\shared\\memory\\memory.c",
+        "\\i686-elf\\shared\\storage\\file_io\\file_io.c",
     };
 
     for (u32 Index = 0; Index < ArrayCount(CFiles); Index++)
@@ -80,7 +80,7 @@ b32 BuildBootloaderImage(build_context *BuildContext)
     }
 
     AddLinkerFlags(BuildContext, "-nostdlib -Wl,-Map=bootloader.map");
-    SetLinkerScriptPath(BuildContext, "\\sources\\i686-elf\\os\\bootloader\\bootloader.lds");
+    SetLinkerScriptPath(BuildContext, "\\i686-elf\\os\\bootloader\\bootloader.lds");
 
     for (u32 Index = 0; Index < ArrayCount(AssemblyFiles); Index++)
     {

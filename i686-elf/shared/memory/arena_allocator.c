@@ -1,7 +1,7 @@
-#include "sources\i686-elf\libraries\base_types.h"
-#include "sources\i686-elf\libraries\basic_defines.h"
-#include "sources\i686-elf\libraries\strings\print.h"
-#include "sources\i686-elf\libraries\memory\arena_allocator.h"
+#include "i686-elf\shared\base_types.h"
+#include "i686-elf\shared\basic_defines.h"
+#include "i686-elf\shared\strings\print.h"
+#include "i686-elf\shared\memory\arena_allocator.h"
 
 void InitializeMemoryArena(memory_arena *Arena, u32 Size, void *BaseAddress)
 {
