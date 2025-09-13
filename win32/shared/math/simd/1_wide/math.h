@@ -1,5 +1,7 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+
 struct u32_lane
 {
     u32 m32i_i32[1];

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\floats.h"
+#include "win32\shared\math\vector2.h"
+
 struct rectangle2
 {
     v2 MinPoint;

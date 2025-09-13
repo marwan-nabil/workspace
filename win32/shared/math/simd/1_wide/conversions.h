@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+#include "win32\shared\math\simd\1_wide\math.h"
+
 /******************************************/
 /*                  floats                */
 /******************************************/

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\vector2.h"
+#include "win32\handmade_hero\game_interface.h"
+
 #pragma pack(push, 1)
 struct bitmap_header
 {

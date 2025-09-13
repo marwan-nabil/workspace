@@ -1,5 +1,7 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+
 #define PATH_HANDLING_SEGMENT_STRING_LENGTH 128
 
 struct file_path_segment_node

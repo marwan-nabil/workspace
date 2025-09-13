@@ -1,5 +1,8 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+
 #define PushStruct(Arena, DataType) (DataType *)PushOntoMemoryArena((Arena), sizeof(DataType))
 #define PushArray(Arena, Count, DataType) (DataType *)PushOntoMemoryArena((Arena), (Count) * sizeof(DataType))
 #define ZeroStruct(Struct) memset(&(Struct), 0, sizeof(Struct))

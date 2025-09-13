@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\scalar_conversions.h"
+#include "win32\shared\math\vector3.h"
+
 union v4
 {
 	struct

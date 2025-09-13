@@ -1,5 +1,10 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\handmade_hero\memory.h"
+#include "win32\shared\math\vector2.h"
+#include "win32\shared\math\vector3.h"
+
 #define ENTITY_INIFINTE_MOVEMENT_DISTANCE 10000.0f
 #define INVALID_ENTITY_POSITION V3(100000.0f, 100000.0f, 100000.0f)
 #define ENTITY_HIT_POINT_SUBCOUNT 4

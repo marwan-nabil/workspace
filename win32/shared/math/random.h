@@ -1,5 +1,7 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+
 struct random_series
 {
     u32 State;

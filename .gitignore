@@ -1,4 +1,4 @@
-tools/
-toolchains/
 build/
 data/
+toolchains/
+tools/

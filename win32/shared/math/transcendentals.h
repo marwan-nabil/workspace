@@ -1,3 +1,8 @@
+#pragma once
+
+#include <math.h>
+#include "win32\shared\base_types.h"
+
 inline f32
 Sin(f32 Angle)
 {

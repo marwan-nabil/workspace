@@ -1,5 +1,8 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\floats.h"
+
 union v2
 {
 	struct

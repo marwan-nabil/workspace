@@ -1,5 +1,10 @@
 #pragma once
 
+#include <windows.h>
+#include <d3d11.h>
+#include <directxmath.h>
+#include "win32\shared\base_types.h"
+
 struct application_data
 {
     u32 Width;

@@ -1,5 +1,9 @@
-
 #pragma once
+
+#include <memory.h>
+
+#include "win32\shared\base_types.h"
+#include "win32\shared\system\memory.h"
 
 struct fat_string
 {

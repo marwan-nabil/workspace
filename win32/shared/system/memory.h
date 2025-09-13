@@ -1,5 +1,9 @@
 #pragma once
 
+#include <memory.h>
+#include "win32\shared\base_types.h"
+#include "win32\shared\basic_defines.h"
+
 struct memory_arena
 {
     u32 Size;

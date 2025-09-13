@@ -1,5 +1,8 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\build\actions\build_context.h"
+
 #define CONFIGURED_TARGETS_COUNT 13
 
 typedef b32 (build_function_type)(build_context *);

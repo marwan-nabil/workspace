@@ -1,5 +1,10 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\vector2.h"
+#include "win32\shared\math\vector3.h"
+#include "win32\handmade_hero\entity.h"
+
 struct entity_collision_mesh
 {
     v3 Diameter;
@@ -20,9 +25,6 @@ struct entity_collision_rule
     b32 CanCollide;
     entity_collision_rule *Next;
 };
-
-struct game_state;
-struct entity;
 
 b32 CanEntitiesCollide(game_state *GameState, entity *A, entity *B);
 b32 ProcessEntityCollision(game_state *GameState, entity *MovingEntity, entity *StaticEntity);
