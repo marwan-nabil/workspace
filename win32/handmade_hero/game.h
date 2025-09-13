@@ -1,5 +1,14 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\vector2.h"
+#include "win32\shared\math\vector3.h"
+#include "win32\handmade_hero\memory.h"
+#include "win32\handmade_hero\bitmap.h"
+#include "win32\handmade_hero\world.h"
+#include "win32\handmade_hero\entity.h"
+#include "win32\handmade_hero\collision.h"
+
 struct controlled_hero_input
 {
     u32 HeroEntityStorageIndex;

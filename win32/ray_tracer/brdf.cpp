@@ -29,7 +29,7 @@
 #   include "win32\shared\math\simd\8_wide\math.h"
 #else
 #   error "the defined SIMD_NUMBEROF_LANES is still not supported"
-#endif // SIMD_NUMBEROF_LANES == 1
+#endif
 
 #include "win32\shared\math\simd\shared\math.h"
 

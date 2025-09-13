@@ -1,5 +1,20 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\vector3.h"
+
+#if (SIMD_NUMBEROF_LANES == 1)
+#   include "win32\shared\math\simd\1_wide\math.h"
+#elif (SIMD_NUMBEROF_LANES == 4)
+#   include "win32\shared\math\simd\4_wide\math.h"
+#elif (SIMD_NUMBEROF_LANES == 8)
+#   include "win32\shared\math\simd\8_wide\math.h"
+#else
+#   error "ERROR: brdf.h: SIMD_NUMBEROF_LANES is not defined, or not supported."
+#endif
+
+#include "win32\shared\math\simd\shared\math.h"
+
 struct brdf_sample
 {
     f32 ThetaIn;

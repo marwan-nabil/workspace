@@ -140,35 +140,32 @@ REM )
 
 REM bootstrap function
 :bootstrap
-    REM call %cd%\toolchains\msvc\setup_x64.bat
-    REM if "%1"=="debug" (
-    REM     set optimization_flags=/Od /Z7
-    REM ) else (
-    REM     set optimization_flags=/O2
-    REM )
-    REM set cc_flags=/nologo %optimization_flags% /Oi /FC /GR- /EHa-
-    REM set cc_flags=%cc_flags% /W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 /wd4018
-    REM set cc_flags=%cc_flags% /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
-    REM set cc_flags=%cc_flags% /I%cd%
-    REM set link_flags=/link /subsystem:console /incremental:no /opt:ref user32.lib shell32.lib Shlwapi.lib
+    call %cd%\toolchains\msvc\setup_x64.bat
+    if "%2"=="debug" (
+        set optimization_flags=/Od /Z7
+    ) else (
+        set optimization_flags=/O2
+    )
+    set cc_flags=/nologo %optimization_flags% /Oi /FC /GR- /EHa-
+    set cc_flags=%cc_flags% /W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 /wd4018
+    set cc_flags=%cc_flags% /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
+    set cc_flags=%cc_flags% /I%cd%
+    set link_flags=/subsystem:console /incremental:no /opt:ref user32.lib shell32.lib Shlwapi.lib
 
-    REM if not exist %cd%\build\bootstrapper; mkdir %cd%\build\bootstrapper
-    REM pushd %cd%\build\bootstrapper
-    REM     cl %cc_flags%^
-    REM         %cd%\..\..\win32\bootstrapper\bootstrapper.cpp^
-    REM         %cd%\..\..\win32\build\actions\build_context.cpp^
-    REM         %cd%\..\..\win32\build\actions\msvc.cpp^
-    REM         %cd%\..\..\win32\shared\file_system\folders.cpp^
-    REM         %cd%\..\..\win32\shared\shell\console.cpp^
-    REM         %cd%\..\..\win32\shared\strings\path_handling.cpp^
-    REM         %cd%\..\..\win32\shared\strings\string_list.cpp^
-    REM         %cd%\..\..\win32\shared\system\processes.cpp^
-    REM         /Fe:bootstrapper.exe^
-    REM         %link_flags%
-    REM popd
+    if not exist build\bootstrapper; mkdir build\bootstrapper
+    pushd build\bootstrapper
+        cl %cc_flags%^
+            ..\..\win32\bootstrapper\bootstrapper.cpp^
+            ..\..\win32\build\actions\build_context.cpp^
+            ..\..\win32\build\actions\msvc.cpp^
+            ..\..\win32\shared\file_system\folders.cpp^
+            ..\..\win32\shared\shell\console.cpp^
+            ..\..\win32\shared\strings\path_handling.cpp^
+            ..\..\win32\shared\strings\string_list.cpp^
+            ..\..\win32\shared\system\processes.cpp^
+            /Fe:bootstrapper.exe^
+            /link %link_flags%
+    popd
 
-    REM %cd%\build\bootstrapper\bootstrapper.exe %1
-    REM if not exist %cd%\build\build\build.exe (
-    REM     echo ERROR: bootstrap.bat: build.exe was not bootstrapped successfully.
-    REM )
+    build\bootstrapper\bootstrapper.exe %2
 goto :eof

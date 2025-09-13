@@ -9,7 +9,7 @@
 #include "win32\shared\basic_defines.h"
 #include "win32\shared\shell\dpi.h"
 #include "win32\shared\system\version.h"
-#include "win32\shared\imgui\imgui.h"
+#include "win32\third_party\imgui\imgui.h"
 #include "win32_backend.h"
 
 win32_global_handles Win32GlobalHandles;

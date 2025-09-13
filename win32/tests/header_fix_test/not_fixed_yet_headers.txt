@@ -1,20 +1,5 @@
 those are the header files that are still not fixed:
 
-win32\handmade_hero\game.h
-win32\handmade_hero\game_interface.h
-win32\handmade_hero\memory.h
-win32\handmade_hero\random_numbers_table.h
-win32\handmade_hero\renderer.h
-win32\handmade_hero\simulation.h
-win32\handmade_hero\win32_platform.h
-win32\handmade_hero\world.h
-win32\imgui_demo\dx11_backend.h
-win32\imgui_demo\opengl2_backend.h
-win32\imgui_demo\win32_backend.h
-win32\lint\lint.h
-win32\ray_tracer\brdf.h
-win32\ray_tracer\ray_tracer.h
-
 win32\shared\math\simd\1_wide\assertions.h
 win32\shared\math\simd\1_wide\conversions.h
 win32\shared\math\simd\1_wide\floats.h

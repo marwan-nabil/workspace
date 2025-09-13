@@ -1,5 +1,11 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\handmade_hero\entity.h"
+#include "win32\handmade_hero\world.h"
+#include "win32\handmade_hero\game.h"
+#include "win32\shared\math\rectangle3.h"
+
 struct entity_table_entry
 {
     entity *Entity;

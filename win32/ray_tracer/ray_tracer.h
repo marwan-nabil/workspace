@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\vector3.h"
+#include "win32\shared\math\simd\shared\random.h"
+
 #define BOUNCES_PER_RAY 8
 #define RAYS_PER_PIXEL 256
 #define RAY_BATCHES_PER_PIXEL (RAYS_PER_PIXEL / SIMD_NUMBEROF_LANES)

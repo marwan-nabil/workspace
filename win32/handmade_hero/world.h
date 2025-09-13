@@ -1,5 +1,9 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\handmade_hero\entity.h"
+#include "win32\shared\math\vector3.h"
+
 #define TILES_PER_CHUNK 16
 #define MAX_CHUNK_DISTANCE_FROM_CENTER (INT32_MAX / 64)
 #define CHUNK_POSITION_UNINITIALIZED_VALUE INT32_MAX

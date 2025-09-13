@@ -9,15 +9,6 @@
 #include "win32\shared\strings\path_handling.h"
 #include "win32\shared\strings\strings.h"
 
-// #include "win32\shared\system\memory.h"
-// #include "win32\shared\strings\strings.h"
-// #include "win32\shared\strings\string_list.h"
-// #include "win32\shared\shell\console.h"
-// #include "win32\shared\file_system\folders.h"
-// #include "win32\build\actions\msvc.h"
-// #include "win32\build\targets.h"
-// #include "win32\build\build.h"
-
 b32 BuildBuild(build_context *BuildContext)
 {
     b32 BuildSuccess = FALSE;

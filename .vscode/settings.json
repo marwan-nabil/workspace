@@ -5,7 +5,7 @@
         "toolchains/": false,
         "toolchains/i686-elf": true,
         "toolchains/iveriloog": true,
-        "toolchains/msvc": false,
+        "toolchains/msvc": true,
         "toolchains/mysys64": true,
         "toolchains/nasm": true,
         "tools/": true,

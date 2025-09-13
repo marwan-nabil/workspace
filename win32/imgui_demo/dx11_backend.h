@@ -1,5 +1,10 @@
 #pragma once
 
+#include <windows.h>
+#include <d3d11.h>
+#include "win32\shared\base_types.h"
+#include "win32\third_party\imgui\imgui.h"
+
 struct dx11_backend_data
 {
     ID3D11Device *D3dDevice;

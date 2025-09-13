@@ -1,5 +1,12 @@
 #pragma once
 
+#include "win32\shared\base_types.h"
+#include "win32\shared\math\vector2.h"
+#include "win32\shared\math\vector3.h"
+#include "win32\shared\math\vector4.h"
+#include "win32\handmade_hero\game_interface.h"
+#include "win32\handmade_hero\bitmap.h"
+
 struct render_piece
 {
     loaded_bitmap *Bitmap;
