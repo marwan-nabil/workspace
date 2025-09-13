@@ -5,16 +5,13 @@ if not exist win32 (
     echo "ERROR: main.bat: not executing from the root of the workspace."
 )
 
-if "%1"=="build" (
-    if not exist build\build.exe (
-        call :bootstrap
-    )
-    build/build.exe %*
+if "%1"=="bootstrap" (
+    call :bootstrap
     goto :eof
 )
 
-if "%1"=="bootstrap" (
-    call :bootstrap
+if "%1"=="build" (
+    build\build\build.exe %*
     goto :eof
 )
 
@@ -138,34 +135,22 @@ REM         build ray_tracer 1_lane && %workspace_path%\outputs\ray_tracer\ray_t
 REM     )
 REM )
 
-REM bootstrap function
 :bootstrap
-    call %cd%\toolchains\msvc\setup_x64.bat
-    if "%2"=="debug" (
-        set optimization_flags=/Od /Z7
-    ) else (
-        set optimization_flags=/O2
-    )
-    set cc_flags=/nologo %optimization_flags% /Oi /FC /GR- /EHa-
-    set cc_flags=%cc_flags% /W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 /wd4018
-    set cc_flags=%cc_flags% /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
-    set cc_flags=%cc_flags% /I%cd%
+    call toolchains\msvc\setup_x64.bat
+    set cc_flags=/nologo /Od /Z7 /Oi /FC /GR- /EHa-
+    set cc_flags=!cc_flags! /W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 /wd4018
+    set cc_flags=!cc_flags! /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
+    set cc_flags=!cc_flags! /I%cd%
     set link_flags=/subsystem:console /incremental:no /opt:ref user32.lib shell32.lib Shlwapi.lib
 
-    if not exist build\bootstrapper; mkdir build\bootstrapper
-    pushd build\bootstrapper
-        cl %cc_flags%^
-            ..\..\win32\bootstrapper\bootstrapper.cpp^
-            ..\..\win32\build\actions\build_context.cpp^
-            ..\..\win32\build\actions\msvc.cpp^
-            ..\..\win32\shared\file_system\folders.cpp^
+    if not exist build\build; mkdir build\build
+    pushd build\build
+        cl !cc_flags!^
+            ..\..\win32\build\build.cpp^
             ..\..\win32\shared\shell\console.cpp^
-            ..\..\win32\shared\strings\path_handling.cpp^
+            ..\..\win32\shared\file_system\folders.cpp^
             ..\..\win32\shared\strings\string_list.cpp^
-            ..\..\win32\shared\system\processes.cpp^
-            /Fe:bootstrapper.exe^
-            /link %link_flags%
+            /Fe:build.exe^
+            /link !link_flags!
     popd
-
-    build\bootstrapper\bootstrapper.exe %2
 goto :eof

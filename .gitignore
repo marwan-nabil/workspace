@@ -1,4 +1,4 @@
-build/
-data/
-toolchains/
-tools/
+/build
+/data
+/toolchains
+/tools
