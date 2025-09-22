@@ -77,7 +77,7 @@ b32 BuildBuild(build_context *BuildContext)
         char *SourceFileNameWithExtension = GetPointerToLastSegmentFromPath(SourceFiles[Index], '\\');
         char SourceFileName[_MAX_FNAME] = {};
         char SourceFileExtension[_MAX_EXT] = {};
-        GetFileNameAndExtensionFromString(SourceFileNameWithExtension, SourceFileName, _MAX_FNAME, SourceFileExtension, _MAX_EXT);
+        SeparateStringIntoFilenameAndExtension(SourceFileNameWithExtension, SourceFileName, _MAX_FNAME, SourceFileExtension, _MAX_EXT);
         if (strcmp(SourceFileName, "build") == 0)
         {
             char TemporaryFilePathBuffer[MAX_PATH] = {};

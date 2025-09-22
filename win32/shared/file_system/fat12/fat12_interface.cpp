@@ -13,7 +13,7 @@
 
 directory_entry *Fat12GetDirectoryEntryOfFile(fat12_disk *Disk, char *FullFilePath)
 {
-    if (StringLength(FullFilePath) == 1)
+    if (strlen(FullFilePath) == 1)
     {
         return NULL;
     }
@@ -29,7 +29,7 @@ directory_entry *Fat12GetDirectoryEntryOfFile(fat12_disk *Disk, char *FullFilePa
     char LocalFileName[8] = {};
     char LocalFileExtension[3] = {};
 
-    GetFileNameAndExtensionFromString
+    SeparateStringIntoFilenameAndExtension
     (
         CurrentNode->SegmentName, LocalFileName, 8, LocalFileExtension, 3
     );
@@ -53,7 +53,7 @@ directory_entry *Fat12GetDirectoryEntryOfFile(fat12_disk *Disk, char *FullFilePa
         ZeroMemory(LocalFileName, ArrayCount(LocalFileName));
         ZeroMemory(LocalFileExtension, ArrayCount(LocalFileExtension));
 
-        GetFileNameAndExtensionFromString
+        SeparateStringIntoFilenameAndExtension
         (
             CurrentNode->SegmentName, LocalFileName, 8, LocalFileExtension, 3
         );
@@ -81,7 +81,7 @@ directory_entry *Fat12GetDirectoryEntryOfFile(fat12_disk *Disk, char *FullFilePa
 
 directory_entry *Fat12AddFile(fat12_disk *Disk, char *FullFilePath, void *Memory, u32 Size)
 {
-    if (StringLength(FullFilePath) == 1)
+    if (strlen(FullFilePath) == 1)
     {
         return NULL;
     }
@@ -90,7 +90,7 @@ directory_entry *Fat12AddFile(fat12_disk *Disk, char *FullFilePath, void *Memory
 
     char LocalFileName[8] = {};
     char LocalFileExtension[3] = {};
-    GetFileNameAndExtensionFromString
+    SeparateStringIntoFilenameAndExtension
     (
         CurrentPathNode->SegmentName, LocalFileName, 8, LocalFileExtension, 3
     );
@@ -128,7 +128,7 @@ directory_entry *Fat12AddFile(fat12_disk *Disk, char *FullFilePath, void *Memory
         ZeroMemory(LocalFileName, ArrayCount(LocalFileName));
         ZeroMemory(LocalFileExtension, ArrayCount(LocalFileExtension));
 
-        GetFileNameAndExtensionFromString
+        SeparateStringIntoFilenameAndExtension
         (
             CurrentPathNode->SegmentName, LocalFileName, 8, LocalFileExtension, 3
         );
@@ -171,7 +171,7 @@ directory_entry *Fat12AddFile(fat12_disk *Disk, char *FullFilePath, void *Memory
 
 directory_entry *Fat12AddDirectory(fat12_disk *Disk, char *DirectoryPath)
 {
-    if (StringLength(DirectoryPath) == 1)
+    if (strlen(DirectoryPath) == 1)
     {
         return NULL;
     }
@@ -181,7 +181,7 @@ directory_entry *Fat12AddDirectory(fat12_disk *Disk, char *DirectoryPath)
     if (!CurrentPathNode->ChildNode)
     {
         char LocalDirectoryName[8] = {};
-        FillFixedSizeStringBuffer
+        StringCchCatA
         (
             LocalDirectoryName,
             ArrayCount(LocalDirectoryName),
@@ -218,7 +218,7 @@ directory_entry *Fat12AddDirectory(fat12_disk *Disk, char *DirectoryPath)
         if (!CurrentPathNode->ChildNode)
         {
             char LocalDirectoryName[8] = {};
-            FillFixedSizeStringBuffer
+            StringCchCatA
             (
                 LocalDirectoryName,
                 ArrayCount(LocalDirectoryName),
@@ -309,7 +309,7 @@ void Fat12ListDirectory(fat12_disk *Disk, char *DirectoryPath)
 
     if
     (
-        (StringLength(DirectoryPath) == 1) &&
+        (strlen(DirectoryPath) == 1) &&
         (memcmp(DirectoryPath, "\\", 1) == 0)
     )
     {

@@ -7,11 +7,10 @@
             "cwd": "${workspaceFolder}",
             "program": "build/build/build.exe",
             "args": [
-                "build",
-                "nigga"
+                "lint"
             ],
-            "stopAtEntry": true,
-            "console": "externalTerminal",
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
         }
     ],
     "version": "2.0.0"

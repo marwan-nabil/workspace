@@ -12,7 +12,7 @@
             "windowsSdkVersion": "10.0.26100.0",
             "compilerPath": "${workspaceFolder}\\toolchains\\msvc\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
             "browse": {
-                "limitSymbolsToIncludedHeaders": true,
+                "limitSymbolsToIncludedHeaders": true
             }
         }
     ],

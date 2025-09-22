@@ -63,11 +63,12 @@ static void
 Win32BuildFilePath(win32_platform_state *PlatformState, char *FileName, u32 DestinationBufferSize, char *DestinationBuffer)
 {
     size_t FirstStringLength = PlatformState->ExeFilePathOnePastLastSlash - PlatformState->ExeFilePath;
-    CombineStrings
-    (
-        FirstStringLength, StringLength(FileName), DestinationBufferSize,
-        PlatformState->ExeFilePath, FileName, DestinationBuffer
-    );
+    size_t SecondStringLength = strlen(FileName);
+    Assert((FirstStringLength + SecondStringLength) < DestinationBufferSize);
+
+    memcpy(DestinationBuffer, PlatformState->ExeFilePath, FirstStringLength);
+    memcpy(DestinationBuffer + FirstStringLength, FileName, SecondStringLength);
+    DestinationBuffer[FirstStringLength + SecondStringLength] = '\0';
 }
 
 PLATFORM_FREE_FILE_MEMORY(PlatformFreeFileMemory)

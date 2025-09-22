@@ -1,3 +1,5 @@
+// TODO:
+//  - remove all hardcoded path string buffers, use custom allocators instead
 #include <Windows.h>
 #include <stdint.h>
 #include <strsafe.h>
@@ -6,7 +8,7 @@
 
 #include "win32\shared\base_types.h"
 #include "win32\shared\basic_defines.h"
-#include "win32\shared\system\memory.h"
+#include "win32\shared\memory\memory.h"
 #include "win32\shared\shell\console.h"
 #include "win32\shared\strings\string_list.h"
 #include "win32\shared\file_system\folders.h"
@@ -106,19 +108,20 @@ b32 DoesDirectoryExist(const char *DirectoryPath)
     return FALSE;
 }
 
-void DeleteDirectoryCompletely(const char *DirectoryPath)
+b32 DeleteDirectoryCompletely(const char *DirectoryPath)
 {
-    SHFILEOPSTRUCT ShellOperation;
+    SHFILEOPSTRUCTA ShellOperation = {};
     ShellOperation.hwnd = NULL;
     ShellOperation.wFunc = FO_DELETE;
     ShellOperation.pFrom = DirectoryPath;
-    ShellOperation.pTo = "";
+    ShellOperation.pTo = NULL;
     ShellOperation.fFlags = FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_SILENT;
     ShellOperation.fAnyOperationsAborted = FALSE;
     ShellOperation.hNameMappings = 0;
     ShellOperation.lpszProgressTitle = "";
 
-    SHFileOperation(&ShellOperation);
+    b32 Success = SHFileOperationA(&ShellOperation);
+    return Success;
 }
 
 void EmptyDirectory(const char *DirectoryPath)

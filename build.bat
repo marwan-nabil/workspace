@@ -2,20 +2,14 @@
 setlocal enabledelayedexpansion
 
 if not exist win32 (
-    echo "ERROR: main.bat: not executing from the root of the workspace."
+    echo "ERROR: build.bat: not executing from the root of the workspace."
+    goto :eof
 )
 
 if "%1"=="bootstrap" (
     call :bootstrap
     goto :eof
-)
-
-if "%1"=="build" (
-    build\build\build.exe %*
-    goto :eof
-)
-
-if "%1"=="compile_only" (
+) else if "%1"=="compile_only" (
     call toolchains/msvc/setup_x64.bat
 
     set cc_flags=/nologo /Od /Z7 /Oi /FC /GR- /EHa-
@@ -23,10 +17,15 @@ if "%1"=="compile_only" (
     set cc_flags=!cc_flags! /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
     set cc_flags=!cc_flags! /I%cd%
 
-    if not exist build\compile_only_test; mkdir build\compile_only_test
-    pushd build\compile_only_test
+    if not exist build\compile_only; mkdir build\compile_only
+    pushd build\compile_only
         cl /c !cc_flags! ..\..\win32\tests\header_fix_test\main.cpp
     popd
+
+    goto :eof
+) else (
+    if not exist build\build\build.exe; call :bootstrap
+    build\build\build.exe %*
     goto :eof
 )
 
@@ -147,9 +146,8 @@ REM )
     pushd build\build
         cl !cc_flags!^
             ..\..\win32\build\build.cpp^
+            ..\..\win32\build\targets.cpp^
             ..\..\win32\shared\shell\console.cpp^
-            ..\..\win32\shared\file_system\folders.cpp^
-            ..\..\win32\shared\strings\string_list.cpp^
             /Fe:build.exe^
             /link !link_flags!
     popd

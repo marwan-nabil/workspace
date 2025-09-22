@@ -1,15 +1,10 @@
 {
     "search.exclude": {
-        "build/": false,
+        "build/": true,
         "i686-elf/": true,
-        "toolchains/": false,
-        "toolchains/i686-elf": true,
-        "toolchains/iveriloog": true,
-        "toolchains/msvc": true,
-        "toolchains/mysys64": true,
-        "toolchains/nasm": true,
+        "toolchains/": true,
         "tools/": true,
         "verilog/": true,
-        "win32/": false,
+        // "win32/": true,
     },
 }

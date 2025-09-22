@@ -1,1 +1,1 @@
-#include "win32\handmade_hero\game.h"
+#include "win32\shared\strings\fat_strings.h"

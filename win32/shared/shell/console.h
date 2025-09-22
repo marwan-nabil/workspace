@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Windows.h>
+
 struct console_context
 {
     HANDLE ConsoleHandle;
