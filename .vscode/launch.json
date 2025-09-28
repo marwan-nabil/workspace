@@ -11,6 +11,26 @@
             ],
             "stopAtEntry": false,
             "console": "integratedTerminal",
+        },
+        {
+            "name": "memory_test",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "build/memory_test/memory_test.exe",
+            "args": [],
+            "stopAtEntry": true,
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "cstrings_test",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "build/cstrings_test/cstrings_test.exe",
+            "args": [],
+            "stopAtEntry": true,
+            "console": "integratedTerminal",
         }
     ],
     "version": "2.0.0"

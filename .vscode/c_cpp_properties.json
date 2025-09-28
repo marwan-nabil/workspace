@@ -1,7 +1,21 @@
 {
     "configurations": [
         {
-            "name": "win32",
+            "name": "win32_default",
+            "intelliSenseMode": "windows-msvc-x64",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+            ],
+            "windowsSdkVersion": "10.0.26100.0",
+            "compilerPath": "${workspaceFolder}\\toolchains\\msvc\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "ray_tracer",
             "intelliSenseMode": "windows-msvc-x64",
             "includePath": [
                 "${workspaceFolder}/**"
@@ -16,5 +30,6 @@
             }
         }
     ],
+    "enableConfigurationSquiggles": true,
     "version": 4
 }
