@@ -1,6 +1,6 @@
 #pragma once
 
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 
 #define FAT12_SECTORS_PER_CLUSTER 1
 #define FAT12_SECTORS_PER_FAT 9

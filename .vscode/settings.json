@@ -1,10 +1,7 @@
 {
     "search.exclude": {
         "build/": true,
-        "i686-elf/": true,
         "toolchains/": true,
         "tools/": true,
-        "verilog/": true,
-        // "win32/": true,
     },
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\shared\file_system\fat12\fat12.h"
 
 directory_entry *Fat12GetDirectoryEntryOfFile(fat12_disk *Disk, char *FullFilePath);

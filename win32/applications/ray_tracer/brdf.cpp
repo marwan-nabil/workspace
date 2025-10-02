@@ -8,8 +8,8 @@
 #include <float.h>
 #include <time.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\file_system\files.h"
 #include "win32\shared\math\constants.h"
 #include "win32\shared\math\integers.h"

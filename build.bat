@@ -91,14 +91,13 @@ REM )
     set cc_flags=!cc_flags! /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
     set cc_flags=!cc_flags! /I%cd%
     set link_flags=/subsystem:console /incremental:no /opt:ref user32.lib shell32.lib Shlwapi.lib
-
     if not exist build\build; mkdir build\build
     pushd build\build
-        cl !cc_flags!^
-            ..\..\win32\build\build.cpp^
-            ..\..\win32\build\targets.cpp^
-            ..\..\win32\shared\shell\console.cpp^
-            /Fe:build.exe^
-            /link !link_flags!
+    cl !cc_flags!^
+        ..\..\win32\applications\build\build.cpp^
+        ..\..\win32\applications\build\targets.cpp^
+        ..\..\win32\shared\shell\console.cpp^
+        /Fe:build.exe^
+        /link !link_flags!
     popd
 goto :eof

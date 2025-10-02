@@ -1,7 +1,7 @@
 #pragma once
 
 #include <windows.h>
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\third_party\imgui\imgui.h"
 
 #define VK_KEYPAD_ENTER (VK_RETURN + 256)

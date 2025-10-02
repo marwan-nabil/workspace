@@ -5,8 +5,8 @@
 #include <io.h>
 #include <strsafe.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\strings\strings.h"
 
 struct data_chunk

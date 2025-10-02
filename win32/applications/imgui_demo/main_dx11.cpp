@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <shellscalingapi.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\system\version.h"
 #include "win32\shared\shell\dpi.h"
 #include "win32\shared\imgui\imgui.h"

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <strsafe.h>
 
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\shared\basic_structures\singly_linked_list.h"
 #include "win32\shared\strings\cstring.h"
 #include "win32\build\build.h"

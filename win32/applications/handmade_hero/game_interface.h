@@ -1,7 +1,7 @@
 #pragma once
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 
 #define PLATFORM_READ_FILE(name)\
     read_file_result name(thread_context *Thread, char *FileName)

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <intrin.h>
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 
 struct bitscan_result
 {

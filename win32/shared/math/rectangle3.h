@@ -1,6 +1,6 @@
 #pragma once
 
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\shared\math\floats.h"
 #include "win32\shared\math\rectangle2.h"
 #include "win32\shared\math\vector3.h"

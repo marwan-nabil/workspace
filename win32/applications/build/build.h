@@ -1,6 +1,6 @@
 #pragma once
 
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\shared\memory\arena.h"
 
 struct environment_info

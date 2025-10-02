@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <direct.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\strings\strings.h"
 #include "win32\shared\strings\string_list.h"
 #include "win32\shared\shell\console.h"

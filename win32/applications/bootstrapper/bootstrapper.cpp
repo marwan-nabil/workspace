@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <direct.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\build\actions\build_context.h"
 #include "win32\shared\strings\path_handling.h"
 #include "win32\shared\strings\strings.h"

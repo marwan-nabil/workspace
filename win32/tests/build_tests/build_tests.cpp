@@ -16,8 +16,8 @@
 #include <strsafe.h>
 #include <io.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\shell\console.h"
 #include "win32\shared\system\timing.h"
 #include "win32\shared\system\processes.h"

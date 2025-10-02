@@ -1,7 +1,7 @@
 #pragma once
 
 #include <math.h>
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 
 inline f32
 Square(f32 A)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\shared\math\vector3.h"
 
 #if (SIMD_NUMBEROF_LANES == 1)

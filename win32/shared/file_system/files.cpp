@@ -3,8 +3,8 @@
 #include <math.h>
 #include <fileapi.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\math\scalar_conversions.h"
 #include "win32\shared\file_system\files.h"
 

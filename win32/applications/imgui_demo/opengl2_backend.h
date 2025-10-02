@@ -2,7 +2,7 @@
 
 #include <windows.h>
 #include <GL\GL.h>
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\third_party\imgui\imgui.h"
 
 struct opengl2_backend_data

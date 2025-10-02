@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\math\simd\1_wide\conversions.h"
 
 #ifdef ENABLE_ASSERTIONS

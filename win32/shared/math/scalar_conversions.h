@@ -1,8 +1,8 @@
 #pragma once
 
 #include <math.h>
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 
 inline i32
 RoundF32ToI32(f32 Real)

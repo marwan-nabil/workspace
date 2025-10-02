@@ -2,7 +2,7 @@
 
 #include <windows.h>
 #include <dsound.h>
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 
 #define XINPUT_GET_STATE(name) DWORD WINAPI name(DWORD dwUserIndex, XINPUT_STATE *pState)
 #define XINPUT_SET_STATE(name) DWORD WINAPI name(DWORD dwUserIndex, XINPUT_VIBRATION *pVibration)

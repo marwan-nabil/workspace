@@ -5,8 +5,8 @@
 #include <shellscalingapi.h>
 #include <dwmapi.h>
 
-#include "win32\shared\base_types.h"
-#include "win32\shared\basic_defines.h"
+#include "portable\shared\base_types.h"
+#include "portable\shared\basic_defines.h"
 #include "win32\shared\shell\dpi.h"
 #include "win32\shared\system\version.h"
 #include "win32\third_party\imgui\imgui.h"

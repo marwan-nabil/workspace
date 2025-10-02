@@ -1,7 +1,7 @@
 #pragma once
 
 #include <windows.h>
-#include "win32\shared\base_types.h"
+#include "portable\shared\base_types.h"
 #include "win32\shared\memory\arena.h"
 
 struct singly_linked_list_node
