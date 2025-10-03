@@ -1,11 +1,12 @@
 #pragma once
 
+#include <stddef.h>
 #include "portable\shared\base_types.h"
 
 struct read_file_result
 {
     void *FileMemory;
-    u32 Size;
+    size_t Size;
 };
 
 void FreeFileMemory(read_file_result File);

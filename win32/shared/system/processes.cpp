@@ -7,7 +7,7 @@
 #include "portable\shared\basic_defines.h"
 #include "win32\shared\shell\console.h"
 
-b32 CreateProcessAndWait(char *CommandLine, HANDLE ProcessOutput, console_context *ConsoleContext)
+b8 CreateProcessAndWait(char *CommandLine, HANDLE ProcessOutput, console_context *ConsoleContext)
 {
     PROCESS_INFORMATION ProcessInfo = {};
 
@@ -75,9 +75,4 @@ b32 CreateProcessAndWait(char *CommandLine, HANDLE ProcessOutput, console_contex
     }
 
     return TRUE;
-}
-
-b32 CreateProcessAndWait(char *CommandLine, console_context *ConsoleContext)
-{
-    return CreateProcessAndWait(CommandLine, (HANDLE)_get_osfhandle(_fileno(stdout)), ConsoleContext);
 }

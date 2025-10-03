@@ -2,7 +2,7 @@ bits 64
 default rel
 
 %include "win32\shared\memory\linear_allocator.inc"
-%include "win32\shared\basic_structures\singly_linked_list.inc"
+%include "win32\shared\structures\singly_linked_list.inc"
 
 extern malloc
 extern free

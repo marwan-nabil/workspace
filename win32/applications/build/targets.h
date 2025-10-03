@@ -1,7 +1,7 @@
 #pragma once
 
 #include "portable\shared\base_types.h"
-#include "win32\build\build.h"
+#include "win32\applications\build\build.h"
 
 #define NUMBER_OF_CONFIGURED_TARGETS 1
 

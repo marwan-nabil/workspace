@@ -6,25 +6,26 @@
 
 #include "portable\shared\base_types.h"
 #include "portable\shared\basic_defines.h"
+#include "portable\shared\memory\linear_allocator.h"
 #include "win32\shared\shell\console.h"
-#include "win32\shared\memory\arena.h"
-#include "win32\build\build.h"
-#include "win32\build\targets.h"
+#include "win32\applications\build\build.h"
+#include "win32\applications\build\targets.h"
 
 int main(int argc, char **argv)
 {
     b8 BuildSuccess = FALSE;
     b8 TargetFound = FALSE;
 
+    console_context ConsoleContext;
+    InitializeConsole(&ConsoleContext);
+
     environment_info EnvironmentInfo = {};
     EnvironmentInfo.argc = argc;
     EnvironmentInfo.argv = argv;
     EnvironmentInfo.WorkspaceDirectoryPath = _getcwd(NULL, 0);
-    EnvironmentInfo.GlobalMemoryAllocator.Size = MegaBytes(1);
-    EnvironmentInfo.GlobalMemoryAllocator.BaseAddress = (u8 *)malloc(EnvironmentInfo.GlobalMemoryAllocator.Size);
-
-    console_context ConsoleContext;
-    InitializeConsole(&ConsoleContext);
+    EnvironmentInfo.GlobalAllocator.Size = MegaBytes(1);
+    EnvironmentInfo.GlobalAllocator.BaseAddress = (u8 *)malloc(EnvironmentInfo.GlobalAllocator.Size);
+    EnvironmentInfo.ConsoleContext = &ConsoleContext;
 
     if (argc < 2)
     {

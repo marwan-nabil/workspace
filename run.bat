@@ -5,6 +5,8 @@ if "%1"=="memory_test" (
     build\memory_test\memory_test.exe
 ) else if "%1"=="cstrings_test" (
     build\cstrings_test\cstrings_test.exe
+) else if "%1"=="lint" (
+    build\lint\lint.exe
 ) else if "%1"=="verilog_demo" (
     pushd build\verilog_demo
     vvp testbench.vvp

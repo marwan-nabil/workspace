@@ -1,8 +1,8 @@
 #pragma once
 
-#include <windows.h>
 #include "portable\shared\base_types.h"
-#include "win32\shared\memory\arena.h"
+#include "portable\shared\basic_defines.h"
+#include "portable\shared\memory\linear_allocator.h"
 
 struct singly_linked_list_node
 {
@@ -26,11 +26,11 @@ HeadPushSinglyLinkedListNode
 (
     singly_linked_list_node *ListHeadNode,
     void *NewNodeValue,
-    memory_arena *ArenaAllocator
+    linear_allocator *Allocator
 )
 {
     singly_linked_list_node *NewNode = (singly_linked_list_node *)
-        PushOntoMemoryArena(ArenaAllocator, sizeof(singly_linked_list_node), FALSE);
+        PushOntoMemoryArena(Allocator, sizeof(singly_linked_list_node), FALSE);
     NewNode->Value = NewNodeValue;
     NewNode->NextNode = ListHeadNode;
     return NewNode;
@@ -41,11 +41,11 @@ TailPushSinglyLinkedListNode
 (
     singly_linked_list_node *AnyListNode,
     void *NewNodeValue,
-    memory_arena *ArenaAllocator
+    linear_allocator *Allocator
 )
 {
     singly_linked_list_node *NewNode = (singly_linked_list_node *)
-        PushOntoMemoryArena(ArenaAllocator, sizeof(singly_linked_list_node), FALSE);
+        PushOntoMemoryArena(Allocator, sizeof(singly_linked_list_node), FALSE);
     NewNode->Value = NewNodeValue;
     NewNode->NextNode = NULL;
 

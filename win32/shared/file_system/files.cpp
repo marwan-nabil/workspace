@@ -38,7 +38,7 @@ read_file_result ReadFileIntoMemory(char *FilePath)
                 )
                 {
                     Result.FileMemory = FileMemory;
-                    Result.Size = FileSizeU32;
+                    Result.Size = FileSize.QuadPart;
                 }
                 else
                 {
@@ -84,6 +84,7 @@ b32 CreateEmptyFile(char *FilePath, u32 Size, u32 FillPattern)
     return Result;
 }
 
+#if 0
 b32 WriteBinaryFileOverAnother(char *DestinationBinaryFilePath, char *SourceBinaryFilePath, u32 WriteOffset)
 {
     b32 Result = FALSE;
@@ -120,3 +121,4 @@ b32 WriteBinaryFileOverAnother(char *DestinationBinaryFilePath, char *SourceBina
 
     return Result;
 }
+#endif

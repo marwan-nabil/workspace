@@ -19,3 +19,11 @@
 #   define AssertFits(Value, FittingMask)
 #   define InvalidCodepath
 #endif
+
+#ifndef FALSE
+#   define FALSE 0
+#endif
+
+#ifndef TRUE
+#   define TRUE 1
+#endif

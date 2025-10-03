@@ -1,10 +1,9 @@
 #pragma once
 
-#include <windows.h>
 #include <string.h>
 
 #include "portable\shared\base_types.h"
-#include "win32\shared\memory\arena.h"
+#include "portable\shared\memory\linear_allocator.h"
 
 struct fat_string
 {

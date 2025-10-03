@@ -1,40 +1,37 @@
 // TODO:
 // - make linting smarter by not having to touch all the files every time.
 //     - only lint files that were modified since last lint time.
-//     - this requires that we save the last lint time in a metadata .json file.
-// - exclude the data, output, tools folders from liniting.
+//     - this requires that we save the last lint time in a metadata file.
 #include <Windows.h>
-#include <stdint.h>
 #include <stdio.h>
-#include <math.h>
-#include <strsafe.h>
 #include <fileapi.h>
 #include <direct.h>
-#include <io.h>
 #include <time.h>
 #include <shlwapi.h>
 
 #include "portable\shared\base_types.h"
 #include "portable\shared\basic_defines.h"
-#include "win32\shared\math\floats.h"
-#include "win32\shared\math\scalar_conversions.h"
+#include "portable\shared\structures\singly_linked_list.h"
+#include "portable\shared\strings\cstrings.h"
+#include "portable\shared\memory\linear_allocator.h"
+
 #include "win32\shared\file_system\files.h"
-#include "win32\shared\strings\strings.h"
-#include "win32\shared\strings\path_handling.h"
+#include "win32\shared\math\scalar_conversions.h"
+
 #include "lint.h"
 
-// TODO: remove this global path, all functions should use absolute paths
-char RootDirectoryPath[1024];
-
-b32 ProcessDirectory(char *DirectoryRelativePath, directory_node **FoundDirectoriesList, file_node **FoundFilesList)
+b8 ScanDirectory
+(
+    char *DirectoryPath,
+    singly_linked_list_node **FoundDirectoriesList,
+    singly_linked_list_node **FoundFilesList,
+    u32 *DirectoriesToLintCount,
+    u32 *FilesToLintCount,
+    linear_allocator *Allocator
+)
 {
-    b32 DirectoryContainsSourceCode = FALSE;
-    b32 Result = TRUE;
-
-    char DirectoryWildcard[1024] = {};
-    StringCchCatA(DirectoryWildcard, ArrayCount(DirectoryWildcard), RootDirectoryPath);
-    StringCchCatA(DirectoryWildcard, ArrayCount(DirectoryWildcard), DirectoryRelativePath);
-    StringCchCatA(DirectoryWildcard, ArrayCount(DirectoryWildcard), "\\*");
+    b8 DirectoryContainsSourceCode = FALSE;
+    char *DirectoryWildcard = Create2StringCombination(DirectoryPath, "\\*", Allocator);
 
     WIN32_FIND_DATAA FindOperationData;
     HANDLE FindHandle = FindFirstFileA(DirectoryWildcard, &FindOperationData);
@@ -55,11 +52,22 @@ b32 ProcessDirectory(char *DirectoryRelativePath, directory_node **FoundDirector
                     continue;
                 }
 
-                char FoundDirectoryRelativePath[1024] = {};
-                StringCchCatA(FoundDirectoryRelativePath, 1024, DirectoryRelativePath);
-                StringCchCatA(FoundDirectoryRelativePath, 1024, "\\");
-                StringCchCatA(FoundDirectoryRelativePath, 1024, FindOperationData.cFileName);
-                Result = ProcessDirectory(FoundDirectoryRelativePath, FoundDirectoriesList, FoundFilesList) && Result;
+                char *FoundDirectoryPath = Create3StringCombination
+                (
+                    DirectoryPath,
+                    "\\",
+                    FindOperationData.cFileName,
+                    Allocator
+                );
+                ScanDirectory
+                (
+                    FoundDirectoryPath,
+                    FoundDirectoriesList,
+                    FoundFilesList,
+                    DirectoriesToLintCount,
+                    FilesToLintCount,
+                    Allocator
+                );
             }
             else
             {
@@ -70,27 +78,38 @@ b32 ProcessDirectory(char *DirectoryRelativePath, directory_node **FoundDirector
                     (strcmp(Extension, ".h") == 0) ||
                     (strcmp(Extension, ".c") == 0) ||
                     (strcmp(Extension, ".s") == 0) ||
+                    (strcmp(Extension, ".asm") == 0) ||
                     (strcmp(Extension, ".i") == 0) ||
-                    (strcmp(Extension, ".txt") == 0)
+                    (strcmp(Extension, ".inc") == 0)
                 )
                 {
                     if (!DirectoryContainsSourceCode)
                     {
                         DirectoryContainsSourceCode = TRUE;
-                        directory_node *NewDirectoryNode = (directory_node *)malloc(sizeof(directory_node));
-                        *NewDirectoryNode = {};
-                        StringCchCatA(NewDirectoryNode->DirectoryRelativePath, ArrayCount(NewDirectoryNode->DirectoryRelativePath), DirectoryRelativePath);
-                        NewDirectoryNode->NextDirectoryNode = *FoundDirectoriesList;
-                        *FoundDirectoriesList = NewDirectoryNode;
+                        *FoundDirectoriesList = HeadPushSinglyLinkedListNode
+                        (
+                            *FoundDirectoriesList,
+                            DirectoryPath,
+                            Allocator
+                        );
+                        (*DirectoriesToLintCount)++;
                     }
 
-                    file_node *NewFileNode = (file_node *)malloc(sizeof(file_node));
-                    *NewFileNode = {};
-                    StringCchCatA(NewFileNode->FileRelativePath, ArrayCount(NewFileNode->FileRelativePath), DirectoryRelativePath);
-                    StringCchCatA(NewFileNode->FileRelativePath, ArrayCount(NewFileNode->FileRelativePath), "\\");
-                    StringCchCatA(NewFileNode->FileRelativePath, ArrayCount(NewFileNode->FileRelativePath), FindOperationData.cFileName);
-                    NewFileNode->NextFileNode = *FoundFilesList;
-                    *FoundFilesList = NewFileNode;
+                    char *FoundFilePath = Create3StringCombination
+                    (
+                        DirectoryPath,
+                        "\\",
+                        FindOperationData.cFileName,
+                        Allocator
+                    );
+
+                    *FoundFilesList = HeadPushSinglyLinkedListNode
+                    (
+                        *FoundFilesList,
+                        FoundFilePath,
+                        Allocator
+                    );
+                    (*FilesToLintCount)++;
                 }
             }
         } while (FindNextFileA(FindHandle, &FindOperationData) != 0);
@@ -117,25 +136,20 @@ b32 ProcessDirectory(char *DirectoryRelativePath, directory_node **FoundDirector
     return TRUE;
 }
 
-b32 LintFile(char *FileRelativePath)
+b32 LintFile(char *FilePath)
 {
-    char FilePath[MAX_PATH] = {};
-    StringCchCatA(FilePath, MAX_PATH, RootDirectoryPath);
-    StringCchCatA(FilePath, MAX_PATH, FileRelativePath);
-
     read_file_result SourceFile = ReadFileIntoMemory(FilePath);
-
-    u8 *BufferMemory = (u8 *)VirtualAlloc
+    u8 *FileBuffer = (u8 *)VirtualAlloc
     (
         0,
         SourceFile.Size,
         MEM_RESERVE | MEM_COMMIT,
         PAGE_READWRITE
     );
-    ZeroMemory(BufferMemory, SourceFile.Size);
+    memset(FileBuffer, 0, SourceFile.Size);
 
     u8 *ScanPointer = (u8 *)SourceFile.FileMemory;
-    u8 *WritePointer = BufferMemory;
+    u8 *WritePointer = FileBuffer;
 
     u8 *CopyStartPointer = ScanPointer;
     u8 *WhiteSpaceRegionPointer = ScanPointer;
@@ -210,8 +224,7 @@ b32 LintFile(char *FileRelativePath)
         }
     }
 
-    u64 OutputSize = WritePointer - BufferMemory;
-
+    size_t OutputSize = WritePointer - FileBuffer;
     u8 *OutputFileMemory = (u8 *)VirtualAlloc
     (
         0,
@@ -219,7 +232,7 @@ b32 LintFile(char *FileRelativePath)
         MEM_RESERVE | MEM_COMMIT,
         PAGE_READWRITE
     );
-    memcpy(OutputFileMemory, BufferMemory, OutputSize);
+    memcpy(OutputFileMemory, FileBuffer, OutputSize);
 
     b32 Result = WriteFileFromMemory(FilePath, OutputFileMemory, SafeTruncateUint64ToUint32(OutputSize));
     if (!Result)
@@ -228,106 +241,15 @@ b32 LintFile(char *FileRelativePath)
     }
 
     FreeFileMemory(SourceFile);
-    VirtualFree(BufferMemory, 0, MEM_RELEASE);
+    VirtualFree(FileBuffer, 0, MEM_RELEASE);
     VirtualFree(OutputFileMemory, 0, MEM_RELEASE);
-
     return TRUE;
-}
-
-b32 LintDirectoryWithWildcard(char *DirectoryRelativePath, char *FilesWildcard)
-{
-    char SearchPattern[1024] = {};
-    StringCchCatA(SearchPattern, 1024, RootDirectoryPath);
-    StringCchCatA(SearchPattern, 1024, DirectoryRelativePath);
-    StringCchCatA(SearchPattern, 1024, FilesWildcard);
-
-    WIN32_FIND_DATAA FindOperationData;
-    HANDLE FindHandle = FindFirstFileA(SearchPattern, &FindOperationData);
-
-    if (FindHandle != INVALID_HANDLE_VALUE)
-    {
-        do
-        {
-            if ((FindOperationData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
-            {
-                char FoundFilePath[MAX_PATH] = {};
-                StringCchCatA(FoundFilePath, MAX_PATH, DirectoryRelativePath);
-                StringCchCatA(FoundFilePath, MAX_PATH, "\\");
-                StringCchCatA(FoundFilePath, 512, FindOperationData.cFileName);
-
-                LintFile(FoundFilePath);
-            }
-        } while (FindNextFileA(FindHandle, &FindOperationData) != 0);
-
-        DWORD LastErrorCode = GetLastError();
-        if (LastErrorCode != ERROR_NO_MORE_FILES)
-        {
-            printf("ERROR: linting process did not finish properly, please debug.\n");
-            printf("ERROR: last error code is %d\n", LastErrorCode);
-            return FALSE;
-        }
-    }
-    else
-    {
-        DWORD LastError = GetLastError();
-        if (LastError != ERROR_FILE_NOT_FOUND)
-        {
-            printf("ERROR: FindFirstFileA() failed.\n");
-            return FALSE;
-        }
-    }
-
-    FindClose(FindHandle);
-
-    return TRUE;
-}
-
-b32 LintDirectory(char *DirectoryRelativePath)
-{
-    char FilesWildcard[MAX_PATH] = {};
-    StringCchCatA(FilesWildcard, MAX_PATH, "\\*.cpp");
-
-    b32 Result = LintDirectoryWithWildcard(DirectoryRelativePath, FilesWildcard);
-
-    *FilesWildcard = {};
-    StringCchCatA(FilesWildcard, MAX_PATH, "\\*.h");
-
-    Result = LintDirectoryWithWildcard(DirectoryRelativePath, FilesWildcard) && Result;
-
-    *FilesWildcard = {};
-    StringCchCatA(FilesWildcard, MAX_PATH, "\\*.s");
-
-    Result = LintDirectoryWithWildcard(DirectoryRelativePath, FilesWildcard) && Result;
-
-    return Result;
-}
-
-void ProcessLintJob(lint_job *LintJob)
-{
-    LintJob->Result = TRUE;
-
-    if (LintJob->Type == LJT_DIRECTORY)
-    {
-        LintJob->Result = LintDirectory(LintJob->DirectoryRelativePath);
-    }
-    else if (LintJob->Type == LJT_FILE_LIST)
-    {
-        for (u32 FileIndex = 0; FileIndex < LintJob->NumberOfFiles; FileIndex++)
-        {
-            LintJob->Result = LintFile(LintJob->FileRelativePaths[FileIndex]) && LintJob->Result;
-        }
-    }
-    else if (LintJob->Type == LJT_FILE)
-    {
-        LintJob->Result = LintFile(LintJob->FileRelativePath);
-    }
 }
 
 DWORD WINAPI
-WorkerThreadEntry(void *Parameter)
+WorkerThreadEntry(void *ThreadParameter)
 {
-    lint_job_queue *LintJobQueue = (lint_job_queue *)Parameter;
-
+    lint_job_queue *LintJobQueue = (lint_job_queue *)ThreadParameter;
     while (LintJobQueue->TotalJobsDone < LintJobQueue->JobCount)
     {
         u64 LintJobIndex = InterlockedExchangeAdd64(&LintJobQueue->NextJobIndex, 1);
@@ -336,89 +258,92 @@ WorkerThreadEntry(void *Parameter)
             return TRUE;
         }
 
-        ProcessLintJob(&LintJobQueue->Jobs[LintJobIndex]);
-
+        LintJobQueue->Jobs[LintJobIndex].Result = LintFile(LintJobQueue->Jobs[LintJobIndex].FilePath);
         InterlockedExchangeAdd64(&LintJobQueue->TotalJobsDone, 1);
     }
-
     return TRUE;
 }
 
 int main(int argc, char **argv)
 {
-    _getcwd(RootDirectoryPath, sizeof(RootDirectoryPath));
-
-    directory_node *FoundDirectoriesList = 0;
-    file_node *FoundFilesList = 0;
-
-    ProcessDirectory("", &FoundDirectoriesList, &FoundFilesList);
-
-    u32 DirectoryCount = 0;
-    directory_node *DirectoryListIterator = FoundDirectoriesList;
-    while (DirectoryListIterator)
-    {
-        DirectoryCount++;
-        DirectoryListIterator = DirectoryListIterator->NextDirectoryNode;
-    }
-
-    u32 FileCount = 0;
-    file_node *FileListIterator = FoundFilesList;
-    while (FileListIterator)
-    {
-        FileCount++;
-        FileListIterator = FileListIterator->NextFileNode;
-    }
-
-    b32 Result = TRUE;
-
     clock_t StartTime = clock();
+    char *WorkspaceDirectoryPath = _getcwd(NULL, 0);
+
+    linear_allocator GlobalAllocator;
+    GlobalAllocator.Size = MegaBytes(4);
+    GlobalAllocator.Used = 0;
+    GlobalAllocator.BaseAddress = (u8 *)malloc(GlobalAllocator.Size);
+
+    singly_linked_list_node *ListOfDirectoriesToScan = NULL;
+    ListOfDirectoriesToScan = HeadPushSinglyLinkedListNode
+    (
+        ListOfDirectoriesToScan,
+        Create2StringCombination(WorkspaceDirectoryPath, "\\hardware", &GlobalAllocator),
+        &GlobalAllocator
+    );
+    ListOfDirectoriesToScan = HeadPushSinglyLinkedListNode
+    (
+        ListOfDirectoriesToScan,
+        Create2StringCombination(WorkspaceDirectoryPath, "\\i686-elf", &GlobalAllocator),
+        &GlobalAllocator
+    );
+    ListOfDirectoriesToScan = HeadPushSinglyLinkedListNode
+    (
+        ListOfDirectoriesToScan,
+        Create2StringCombination(WorkspaceDirectoryPath, "\\portable", &GlobalAllocator),
+        &GlobalAllocator
+    );
+    ListOfDirectoriesToScan = HeadPushSinglyLinkedListNode
+    (
+        ListOfDirectoriesToScan,
+        Create2StringCombination(WorkspaceDirectoryPath, "\\win32", &GlobalAllocator),
+        &GlobalAllocator
+    );
+
+    u32 DirectoriesToLintCount = 0;
+    u32 FilesToLintCount = 0;
+    singly_linked_list_node *DirectoriesToLint = NULL;
+    singly_linked_list_node *FilesToLint = NULL;
+    
+    singly_linked_list_node *CurrentNode = ListOfDirectoriesToScan;
+    while (CurrentNode)
+    {
+        ScanDirectory
+        (
+            (char *)CurrentNode->Value,
+            &DirectoriesToLint,
+            &FilesToLint,
+            &DirectoriesToLintCount,
+            &FilesToLintCount,
+            &GlobalAllocator
+        );
+        CurrentNode = CurrentNode->NextNode;
+    }
 
     lint_job_queue LintJobQueue;
-#if defined(JOB_PER_DIRECTORY)
-    LintJobQueue.JobCount = DirectoryCount;
-#endif
-#if defined(JOB_PER_FILE)
-    LintJobQueue.JobCount = FileCount;
-#endif
+    LintJobQueue.JobCount = FilesToLintCount;
+    LintJobQueue.Jobs = (lint_job *)PushOntoMemoryArena(&GlobalAllocator, sizeof(lint_job), FALSE);
     LintJobQueue.NextJobIndex = 0;
     LintJobQueue.TotalJobsDone = 0;
-    LintJobQueue.Jobs = (lint_job *)malloc(LintJobQueue.JobCount * sizeof(lint_job));
-
+    
     for (u32 JobIndex = 0; JobIndex < LintJobQueue.JobCount; JobIndex++)
     {
         lint_job *Job = &LintJobQueue.Jobs[JobIndex];
-        ZeroMemory(Job, sizeof(lint_job));
-#if defined(JOB_PER_DIRECTORY)
-        Job->Type = LJT_DIRECTORY;
-        Job->DirectoryRelativePath = FoundDirectoriesList->DirectoryRelativePath;
-        FoundDirectoriesList = FoundDirectoriesList->NextDirectoryNode;
-#endif
-#if defined(JOB_PER_FILE)
-        Job->Type = LJT_FILE;
-        Job->FileRelativePath = FoundFilesList->FileRelativePath;
-        FoundFilesList = FoundFilesList->NextFileNode;
-#endif
         Job->Result = FALSE;
+        Job->FilePath = (char *)FilesToLint->Value;
+        FilesToLint = FilesToLint->NextNode;
     }
 
     SYSTEM_INFO SystemInfo;
     GetSystemInfo(&SystemInfo);
     u32 ThreadCount = (u8)SystemInfo.dwNumberOfProcessors;
 
-// #if defined(JOB_PER_DIRECTORY)
-//     u32 ThreadCount = LintJobQueue.JobCount;
-// #endif
-// #if defined(JOB_PER_FILE)
-//     u32 ThreadCount = LintJobQueue.JobCount / 4;
-// #endif
-
-    printf("\nCreated %d threads.\n", ThreadCount);
+    printf("INFO: Creating %d threads for linting.\n", ThreadCount);
 
     for (u32 ThreadIndex = 0; ThreadIndex < ThreadCount; ThreadIndex++)
     {
         DWORD ThreadId;
-        HANDLE ThreadHandle =
-            CreateThread(0, 0, WorkerThreadEntry, &LintJobQueue, 0, &ThreadId);
+        HANDLE ThreadHandle = CreateThread(0, 0, WorkerThreadEntry, &LintJobQueue, 0, &ThreadId);
         CloseHandle(ThreadHandle);
     }
 
@@ -426,19 +351,13 @@ int main(int argc, char **argv)
 
     for (u32 ResultIndex = 0; ResultIndex < LintJobQueue.JobCount; ResultIndex++)
     {
-        Result = Result && LintJobQueue.Jobs[ResultIndex].Result;
+        if (!LintJobQueue.Jobs[ResultIndex].Result)
+        {
+            printf("ERROR: Linting failed for file: %s\n", LintJobQueue.Jobs[ResultIndex].FilePath);
+            return 1;
+        }
     }
 
-    printf("\nLinting time: %ld ms\n", clock() - StartTime);
-
-    if (Result)
-    {
-        printf("\nLint succeeded\n");
-        return 0;
-    }
-    else
-    {
-        printf("\nLint failed\n");
-        return 1;
-    }
+    printf("INFO: Linting succeeded in: %ld ms\n", clock() - StartTime);
+    return 0;
 }

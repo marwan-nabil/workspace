@@ -36,7 +36,7 @@ if "%1"=="clean" (
         %cd%\win32\shared\memory\linear_allocator.asm
     nasm ^
         -g -f win64 -o singly_linked_list.obj -I%cd%^
-        %cd%\win32\shared\basic_structures\singly_linked_list.asm
+        %cd%\win32\shared\structures\singly_linked_list.asm
     nasm ^
         -g -f win64 -o cstrings_test.obj -I%cd%^
         %cd%\win32\tests\assembly_tests\cstrings_test.asm
@@ -63,26 +63,33 @@ if "%1"=="clean" (
     popd
     goto :eof
 ) else (
+    call toolchains\msvc\setup_x64.bat
     if not exist build\build\build.exe; call :bootstrap
     build\build\build.exe %*
     goto :eof
 )
 
-REM if "%1"=="test" (
-REM     if "%1"=="build" (
-REM         build build_tests
-REM         %workspace_path%\outputs\build_tests\build_tests.exe
-REM     )
-REM     if "%1"=="fat12" (
-REM         build fat12_tests
-REM         %workspace_path%\outputs\fat12_tests\fat12_tests.exe
-REM     )
-REM     if "%1"=="ray_tracer" (
-REM         build ray_tracer 8_lanes && %workspace_path%\outputs\ray_tracer\ray_tracer_8.exe %workspace_path%\outputs\ray_tracer\test_8_lanes.bmp && %workspace_path%\outputs\ray_tracer\test_8_lanes.bmp
-REM         build ray_tracer 4_lanes && %workspace_path%\outputs\ray_tracer\ray_tracer_4.exe %workspace_path%\outputs\ray_tracer\test_4_lanes.bmp && %workspace_path%\outputs\ray_tracer\test_4_lanes.bmp
-REM         build ray_tracer 1_lane && %workspace_path%\outputs\ray_tracer\ray_tracer_1.exe %workspace_path%\outputs\ray_tracer\test_1_lane.bmp && %workspace_path%\outputs\ray_tracer\test_1_lane.bmp
-REM     )
-REM )
+@REM if "%1"=="test" (
+@REM     if "%1"=="build" (
+@REM         build build_tests
+@REM         %workspace_path%\outputs\build_tests\build_tests.exe
+@REM     )
+@REM     if "%1"=="fat12" (
+@REM         build fat12_tests
+@REM         %workspace_path%\outputs\fat12_tests\fat12_tests.exe
+@REM     )
+@REM     if "%1"=="ray_tracer" (
+@REM         build ray_tracer 8_lanes &&^
+@REM             %workspace_path%\outputs\ray_tracer\ray_tracer_8.exe %workspace_path%\outputs\ray_tracer\test_8_lanes.bmp &&^
+@REM             %workspace_path%\outputs\ray_tracer\test_8_lanes.bmp
+@REM         build ray_tracer 4_lanes &&^
+@REM             %workspace_path%\outputs\ray_tracer\ray_tracer_4.exe %workspace_path%\outputs\ray_tracer\test_4_lanes.bmp &&^
+@REM             %workspace_path%\outputs\ray_tracer\test_4_lanes.bmp
+@REM         build ray_tracer 1_lane &&^
+@REM             %workspace_path%\outputs\ray_tracer\ray_tracer_1.exe %workspace_path%\outputs\ray_tracer\test_1_lane.bmp &&^
+@REM             %workspace_path%\outputs\ray_tracer\test_1_lane.bmp
+@REM     )
+@REM )
 
 :bootstrap
     call toolchains\msvc\setup_x64.bat
@@ -96,7 +103,9 @@ REM )
     cl !cc_flags!^
         ..\..\win32\applications\build\build.cpp^
         ..\..\win32\applications\build\targets.cpp^
+        ..\..\win32\applications\build\lint_target.cpp^
         ..\..\win32\shared\shell\console.cpp^
+        ..\..\win32\shared\system\processes.cpp^
         /Fe:build.exe^
         /link !link_flags!
     popd

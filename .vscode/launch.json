@@ -13,6 +13,16 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "lint.exe",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "build/lint/lint.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
+        },
+        {
             "name": "memory_test",
             "type": "cppvsdbg",
             "request": "launch",
