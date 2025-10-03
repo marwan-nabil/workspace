@@ -14,14 +14,14 @@ LinearAllocatorAllocate:
     ; touched volatile registers: r10
     sub rsp, 40
 
-    ; r10: number of bytes to be allocated 
+    ; r10: number of bytes to be allocated
     mov r10, rdx
 
     ; rax: base address of the allocator
     mov rax, [rcx + LINEAR_ALLOCATOR.BASE_ADDRESS]
     ; r9: size of already allocated memory
     mov r9,  [rcx + LINEAR_ALLOCATOR.USED]
-    ; rax: result address with free memory 
+    ; rax: result address with free memory
     add rax, r9
 
     ; r9: updated number of used bytes

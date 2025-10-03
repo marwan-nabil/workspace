@@ -304,7 +304,7 @@ int main(int argc, char **argv)
     u32 FilesToLintCount = 0;
     singly_linked_list_node *DirectoriesToLint = NULL;
     singly_linked_list_node *FilesToLint = NULL;
-    
+
     singly_linked_list_node *CurrentNode = ListOfDirectoriesToScan;
     while (CurrentNode)
     {
@@ -325,7 +325,7 @@ int main(int argc, char **argv)
     LintJobQueue.Jobs = (lint_job *)PushOntoMemoryArena(&GlobalAllocator, sizeof(lint_job), FALSE);
     LintJobQueue.NextJobIndex = 0;
     LintJobQueue.TotalJobsDone = 0;
-    
+
     for (u32 JobIndex = 0; JobIndex < LintJobQueue.JobCount; JobIndex++)
     {
         lint_job *Job = &LintJobQueue.Jobs[JobIndex];

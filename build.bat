@@ -10,7 +10,8 @@ if "%1"=="clean" (
     if exist build; rmdir /Q /S build
     goto :eof
 ) else if "%1"=="bootstrap" (
-    call :bootstrap
+    call :build_bootstrapper
+    build\bootstrapper\bootstrapper.exe %*
     goto :eof
 ) else if "%1"=="compile_only" (
     call toolchains/msvc/setup_x64.bat
@@ -64,7 +65,8 @@ if "%1"=="clean" (
     goto :eof
 ) else (
     call toolchains\msvc\setup_x64.bat
-    if not exist build\build\build.exe; call :bootstrap
+    if not exist build\bootstrapper\bootstrapper.exe; call :build_bootstrapper
+    build\bootstrapper\bootstrapper.exe %*
     build\build\build.exe %*
     goto :eof
 )
@@ -91,22 +93,20 @@ if "%1"=="clean" (
 @REM     )
 @REM )
 
-:bootstrap
+:build_bootstrapper
     call toolchains\msvc\setup_x64.bat
     set cc_flags=/nologo /Od /Z7 /Oi /FC /GR- /EHa-
     set cc_flags=!cc_flags! /W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 /wd4018
     set cc_flags=!cc_flags! /D_CRT_SECURE_NO_WARNINGS /D_CRT_RAND_S /DENABLE_ASSERTIONS
     set cc_flags=!cc_flags! /I%cd%
     set link_flags=/subsystem:console /incremental:no /opt:ref user32.lib shell32.lib Shlwapi.lib
-    if not exist build\build; mkdir build\build
-    pushd build\build
+    if not exist build\bootstrapper; mkdir build\bootstrapper
+    pushd build\bootstrapper
     cl !cc_flags!^
-        ..\..\win32\applications\build\build.cpp^
-        ..\..\win32\applications\build\targets.cpp^
-        ..\..\win32\applications\build\lint_target.cpp^
+        ..\..\win32\applications\bootstrapper\bootstrapper.cpp^
         ..\..\win32\shared\shell\console.cpp^
         ..\..\win32\shared\system\processes.cpp^
-        /Fe:build.exe^
+        /Fe:bootstrapper.exe^
         /link !link_flags!
     popd
 goto :eof

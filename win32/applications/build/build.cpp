@@ -1,6 +1,5 @@
 #include <Windows.h>
 #include <direct.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <strsafe.h>
 

@@ -14,7 +14,7 @@ GetLastNodeOfSinglyLinkedList:
     jne GetLastNodeOfSinglyLinkedList
     ret
 
-global HeadPushSinglyLinkedListNode 
+global HeadPushSinglyLinkedListNode
 HeadPushSinglyLinkedListNode:
     ; rcx: pointer to list head node
     ; rdx: pointer to new node value
