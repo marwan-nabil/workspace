@@ -1,2 +1,0 @@
-- finish up the build system, add all avaiable targets and make sure they build correctly.
-- begin transitioning sources from win32/ portable/ if they can be portable.

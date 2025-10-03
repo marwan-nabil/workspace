@@ -6,7 +6,9 @@
 #include "portable\shared\base_types.h"
 #include "portable\shared\basic_defines.h"
 #include "portable\shared\memory\linear_allocator.h"
+
 #include "win32\shared\shell\console.h"
+
 #include "win32\applications\build\build.h"
 #include "win32\applications\build\targets.h"
 

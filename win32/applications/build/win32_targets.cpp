@@ -15,7 +15,7 @@
 
 #include "win32\applications\build\build.h"
 
-b8 BuildLintTarget(environment_info *EnvironmentInfo)
+b8 LintApp(environment_info *EnvironmentInfo)
 {
     char *CompilationCommandFormatString =
         "cl.exe /nologo /Z7 /FC /Oi /GR- /EHa- /MTd /fp:fast /fp:except- "

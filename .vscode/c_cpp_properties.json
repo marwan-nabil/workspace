@@ -14,7 +14,7 @@
             }
         },
         {
-            "name": "ray_tracer",
+            "name": "win32_ray_tracer",
             "intelliSenseMode": "windows-msvc-x64",
             "includePath": [
                 "${workspaceFolder}\\**"

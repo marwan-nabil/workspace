@@ -1,0 +1,5 @@
+[task] finish up the build system, add all avaiable targets and make sure they build correctly.
+    - make sure build target implementations are uniform and have efficient string handling.
+    - restore the build tests, make sure they all run green, i.e. all targets can be built correctly.
+[task] develop basic profiling/benchmarking APIs for windows, using hardware cycle counters.
+[ongoing task] transitioning sources from win32/ portable/ if they can be portable.

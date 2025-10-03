@@ -13,6 +13,16 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "bootstrapper.exe",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "build/bootstrapper/bootstrapper.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
+        },
+        {
             "name": "lint.exe",
             "type": "cppvsdbg",
             "request": "launch",

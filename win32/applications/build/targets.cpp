@@ -7,5 +7,5 @@
 
 target_configuration GlobalTargetConfigurations[NUMBER_OF_CONFIGURED_TARGETS] =
 {
-    {"lint", &BuildLintTarget},
+    {"lint", &LintApp},
 };

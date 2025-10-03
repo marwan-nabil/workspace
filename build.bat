@@ -9,9 +9,8 @@ if not exist win32 (
 if "%1"=="clean" (
     if exist build; rmdir /Q /S build
     goto :eof
-) else if "%1"=="bootstrap" (
+) else if "%1"=="bootstrapper" (
     call :build_bootstrapper
-    build\bootstrapper\bootstrapper.exe %*
     goto :eof
 ) else if "%1"=="compile_only" (
     call toolchains/msvc/setup_x64.bat
@@ -94,6 +93,7 @@ if "%1"=="clean" (
 @REM )
 
 :build_bootstrapper
+    echo INFO: build.bat: building bootstrapper started.
     call toolchains\msvc\setup_x64.bat
     set cc_flags=/nologo /Od /Z7 /Oi /FC /GR- /EHa-
     set cc_flags=!cc_flags! /W4 /WX /wd4201 /wd4100 /wd4189 /wd4505 /wd4456 /wd4996 /wd4018
@@ -105,8 +105,11 @@ if "%1"=="clean" (
     cl !cc_flags!^
         ..\..\win32\applications\bootstrapper\bootstrapper.cpp^
         ..\..\win32\shared\shell\console.cpp^
+        ..\..\win32\shared\file_system\folders.cpp^
+        ..\..\win32\shared\file_system\files.cpp^
         ..\..\win32\shared\system\processes.cpp^
         /Fe:bootstrapper.exe^
         /link !link_flags!
     popd
+    echo INFO: build.bat: building bootstrapper succeeded.
 goto :eof

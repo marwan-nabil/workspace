@@ -15,4 +15,4 @@ struct target_configuration
 
 extern target_configuration GlobalTargetConfigurations[NUMBER_OF_CONFIGURED_TARGETS];
 
-b8 BuildLintTarget(environment_info *EnvironmentInfo);
+b8 LintApp(environment_info *EnvironmentInfo);
